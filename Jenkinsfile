@@ -86,9 +86,9 @@ spec:
             steps {
                 dir('K8s') {
                     script {
-                       def backendImageTag = "codexedyx/jenkins-backend:13.0"
+                       def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
 
-                       def frontendImageTag = "codexedyx/jenkins-frontend:13.0"
+                       def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
 
                        sh "sed -i 's|backend_images:.*|backend_images: $backendImageTag|' ./helm-repo/values.yaml"
 
