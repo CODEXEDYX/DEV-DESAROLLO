@@ -89,10 +89,10 @@ spec:
                        def backendImageTag = "codexedyx/jenkins-backend:13.0"
 
                        def frontendImageTag = "codexedyx/jenkins-frontend:13.0"
-                       
-                       sh "sed -i 's|backend_images:.*|backend_images: $backendImageTag|' ./helm-repo/values.yaml"
 
-                       sh "sed -i 's|frontend_images:.*|frontend_images: $frontendImageTag|' ./helm-repo/values.yaml"
+                       sh "sed -i 's|backend_images:.*|backend_images: $backendImageTag|' /helm-repo/values.yaml"
+
+                       sh "sed -i 's|frontend_images:.*|frontend_images: $frontendImageTag|' /helm-repo/values.yaml"
                        
             }
                     }
