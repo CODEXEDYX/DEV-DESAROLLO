@@ -13,12 +13,14 @@ mexpress_port: 8081
 # backend aplicacion de desarollo
 
 backend_replicase: 1
+backend_images:
 backend_port: 4000
 
 
 # frontend applicacion desarollo
 
-frontend_replicas: 1 
+frontend_replicas: 1
+frontend_images: 
 frontend_port: 80
 
 # config map
