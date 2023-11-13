@@ -82,15 +82,12 @@ spec:
             }
         }
 
-
            stage('Create namespace') {
-             container('kubernetes'){
                steps {
                  sh "kubectl create ns app-polo"
             }
-            
+
             }
-        }
       
         }
     }
