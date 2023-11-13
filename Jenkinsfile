@@ -82,11 +82,19 @@ spec:
             }
         }
 
-           stage('Create namespace') {
-               steps {
-                 sh "kubectl create ns app-polo"
+          stage('Deploy to Kubernetes') {
+            steps {
+                dir('k8s') {
+                    script {
+                       def backendImageTag = "codexedyx/jenkins-backend:13.0"
+                       def frontendImageTag = "codexedyx/jenkins-frontend:13.0"
+                       sh "helm init --client-only"
+                       sh "sed -i 's|backend_images:.*|backend_images: $backendImageTag|' ./helm-repo/values.yaml"
+                       sh "sed -i 's|frontend_images:.*|frontend_images: $frontendImageTag|' ./helm-repo/values.yaml"
+                       sh "helm upgrade --install my-app ./helm-repo -f ./helm-repo/values.yaml"
             }
-
+                    }
+                }
             }
       
         }
