@@ -84,7 +84,7 @@ spec:
 
           stage('Deploy to Kubernetes') {
             steps {
-                dir('k8s') {
+                dir('K8s') {
                     script {
                        def backendImageTag = "codexedyx/jenkins-backend:13.0"
 
