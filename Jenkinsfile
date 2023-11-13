@@ -76,6 +76,8 @@ spec:
 
                         sh "docker push $frontendImageTag"
 
+                        sh "node -v"
+
                     }
                 }
               }           
