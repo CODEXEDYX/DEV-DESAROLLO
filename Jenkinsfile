@@ -75,10 +75,20 @@ spec:
                         sh "docker build -t $frontendImageTag ."
 
                         sh "docker push $frontendImageTag"
-                        
+
                     }
                 }
               }           
+            }
+        }
+
+
+           stage('Create namespace') {
+             container('kubernetes'){
+               steps {
+                 sh "kubectl create ns app-polo"
+            }
+            
             }
         }
       
