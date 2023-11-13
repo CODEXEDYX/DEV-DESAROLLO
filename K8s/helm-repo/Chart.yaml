@@ -1,0 +1,11 @@
+apiVersion: v2
+name: helm-repo
+description: A Helm chart for Kubernetes
+
+type: application
+
+version: 0.1.0
+
+appVersion: "1.16.0"
+
+icon: https://pbs.twimg.com/profile_images/1194637392436531201/ZwpNBdmL_400x400.jpg

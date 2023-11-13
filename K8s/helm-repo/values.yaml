@@ -1,0 +1,36 @@
+# Aplicacion de mongo db de darollo
+mongo_replicase: 1
+mongo_images: mongo:4.4.6
+mongo_port: 27017
+
+# Aplicacion mongo-express
+
+mexpress_replicase: 1
+mexpress_images: mongo-express
+mexpress_port: 8081
+
+
+# backend aplicacion de desarollo
+
+backend_replicase: 1
+backend_images: codexedyx/jenkins-backend:1.0
+backend_port: 4000
+
+
+# frontend applicacion desarollo
+
+frontend_replicas: 1
+frontend_images: codexedyx/jenkins-frontend:1.0
+frontend_port: 80
+
+# config map
+
+config_url: mongo-service
+
+# el namespace de la aplicaion de desrollo global
+
+namespace: app-desarollo
+
+# ingress
+
+hostingress: dev.reactapp.com

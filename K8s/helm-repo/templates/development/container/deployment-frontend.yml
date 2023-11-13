@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-webapp-frontend
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: app-frontend
+spec:
+  replicas: {{ .Values.frontend_replicas }}
+  selector:
+    matchLabels:
+      app: app-frontend
+  template:
+    metadata:
+      labels:
+        app: app-frontend
+    spec:
+      containers:
+      - name: app
+        image: {{ .Values.frontend_images }}
+        ports:
+        - containerPort: {{ .Values.frontend_port }}
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Release.Name }}-mongodb-configmap
+              key: database_url
