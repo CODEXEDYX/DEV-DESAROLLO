@@ -76,6 +76,12 @@ spec:
 
                         sh "docker push $frontendImageTag"
 
+                        nodejs('NodeJS-18.17.1'){
+                          sh 'yarn -v'
+                          sh 'yarn install'
+                          sh 'yarn build'
+                        }
+
                     }
                 }
               }           
