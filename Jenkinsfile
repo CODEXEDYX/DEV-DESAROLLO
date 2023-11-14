@@ -71,8 +71,14 @@ spec:
 
                           sh 'yarn install'
 
-                          sh 'yarn build'
+                          sh 'yarn dev'
                   }
+
+              docker('docker-latest'){
+
+               sh "docker build -t $frontendImageTag ."
+
+              }
 
               container('docker')  {
 
@@ -81,7 +87,7 @@ spec:
 
                         def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
 
-                        sh "docker build -t $frontendImageTag ."
+                        
 
                         sh "docker push $frontendImageTag"
 
