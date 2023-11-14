@@ -70,8 +70,6 @@ spec:
                           sh 'yarn -v'
 
                           sh 'yarn install'
-
-                          sh 'yarn dev'
                   }
 
               docker('docker-latest'){
