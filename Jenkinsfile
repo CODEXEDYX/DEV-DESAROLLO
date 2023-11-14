@@ -49,7 +49,7 @@ spec:
   
         stage('Build Backend') {
             steps {
-              
+
                  nodejs('NodeJS-18.17.1'){
                           sh 'yarn -v'
 
@@ -92,6 +92,8 @@ spec:
 
 
                         sh "docker push $frontendImageTag"
+
+                        sh "docker  images"
 
                     }
                 }
