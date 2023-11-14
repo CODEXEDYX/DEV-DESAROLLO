@@ -65,6 +65,8 @@ spec:
                             sh "docker build -t $backendImageTag  ."
 
                             sh "docker push $backendImageTag"
+
+                            sh "docker images"
                   }
                 }
               }
@@ -89,7 +91,6 @@ spec:
                         def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
 
                         sh "docker build -t $frontendImageTag ."
-
 
                         sh "docker push $frontendImageTag"
 
