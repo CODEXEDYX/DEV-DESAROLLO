@@ -49,6 +49,13 @@ spec:
   
         stage('Build Backend') {
             steps {
+              
+                 nodejs('NodeJS-18.17.1'){
+                          sh 'yarn -v'
+
+                          sh 'yarn install'
+                  }
+
                container('docker') {
                 dir('backend') {
                     script {
