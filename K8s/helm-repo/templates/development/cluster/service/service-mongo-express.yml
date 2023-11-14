@@ -8,7 +8,7 @@ spec:
   selector:
     app: mongo-express
   ports:
-    - protocol:  TCP
+    - protocol: TCP
       port: {{ .Values.mexpress_port }}
       targetPort: {{ .Values.mexpress_port }}
       nodePort: 30000
