@@ -23,8 +23,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-  ignore:
-    - group: apps
-      kind: HelmRelease
-      name: desarollo
-      namespace: app-desarollo
