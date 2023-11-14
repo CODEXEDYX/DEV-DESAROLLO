@@ -107,6 +107,15 @@ spec:
                 dir('K8s') {
                     script {
 
+                       sh "kubectl create ns argocd"
+
+                       sh "kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
+
+                       sh "kubectl port-forward svc/argocd-server -n argocd 8080:443"
+
+                       sh "argocd admin initial-password -n argocd"
+
+                       
                        def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
 
                        def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
@@ -114,6 +123,8 @@ spec:
                        sh "sed -i 's|backend_images:.*|backend_images: $backendImageTag|' ./helm-repo/values.yaml"
 
                        sh "sed -i 's|frontend_images:.*|frontend_images: $frontendImageTag|' ./helm-repo/values.yaml"
+
+                       sh "kubectl apply -f application.yaml"
                        
             }
                     }
