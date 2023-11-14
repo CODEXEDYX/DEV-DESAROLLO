@@ -11,4 +11,4 @@ spec:
     - protocol: TCP
       port: {{ .Values.mexpress_port }}
       targetPort: {{ .Values.mexpress_port }}
-      nodePort: 30000
+      nodePort: 30300
