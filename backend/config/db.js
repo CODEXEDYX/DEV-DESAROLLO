@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 
 const connectDB = async (_) => {
   try {
-    let baseDatos = `${process.env.MONGO_URI}`;
+    //let baseDatos = `${process.env.MONGO_URI}`;
 
     let kuberentesDocker = "mongodb://mongo-service:27017/miapp";
 
-    const db = await mongoose.connect(kuberentesDocker && baseDatos, {
+    const db = await mongoose.connect(kuberentesDocker, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
