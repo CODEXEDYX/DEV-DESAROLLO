@@ -65,6 +65,11 @@ spec:
         }
         stage('Build Frontend') {
             steps {
+
+              nodejs('NodeJS-18.17.1'){
+                          sh 'yarn -v'
+                  }
+
               container('docker')  {
 
                 dir('frontend') {
@@ -75,10 +80,6 @@ spec:
                         sh "docker build -t $frontendImageTag ."
 
                         sh "docker push $frontendImageTag"
-
-                        nodejs('NodeJS-18.17.1'){
-                          sh 'yarn -v'
-                        }
 
                     }
                 }
