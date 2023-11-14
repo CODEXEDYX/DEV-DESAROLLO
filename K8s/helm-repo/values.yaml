@@ -33,4 +33,4 @@ namespace: app-desarollo
 
 # ingress
 
-hostingress: dev.reactapp.com
+hostingress: dev.react.app.com
