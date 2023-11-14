@@ -12,7 +12,7 @@ connectDB();
 
 
 app.use('/', (req  , res) => {
-  res.json('esta bien')
+  res.json({client:'dsdssdds'})
 })
 
 const PORT = process.env.PORT || 4000;
