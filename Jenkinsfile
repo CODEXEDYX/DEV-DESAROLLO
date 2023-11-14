@@ -87,8 +87,6 @@ spec:
 
                         def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
 
-                        
-
                         sh "docker push $frontendImageTag"
 
                     }
