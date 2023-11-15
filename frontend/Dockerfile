@@ -14,7 +14,7 @@ COPY . .
 # Use Nginx como servidor de producción
 FROM nginx:alpine
 # Copie la aplicación React construida al directorio del servidor web de Nginx
- COPY --from=build /app/build /usr/share/nginx/html
+ COPY --from=dist /app/dist /usr/share/nginx/html
 # Exponer el puerto 80 para el servidor Nginx
 EXPOSE 80
 # Iniciar Nginx cuando el contenedor ejecute
