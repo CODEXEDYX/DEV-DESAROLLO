@@ -24,7 +24,7 @@ spec:
     - name: docker-sock
       mountPath: /var/run/docker.sock
   - name: trivy
-    image: aquasec/trivy:v0.20.1
+    image: aquasec/trivy:0.47.0
     command:
     - sh
     - -c
