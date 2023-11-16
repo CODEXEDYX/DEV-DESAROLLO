@@ -23,6 +23,12 @@ spec:
     volumeMounts:
     - name: docker-sock
       mountPath: /var/run/docker.sock
+  - name: trivy
+    image: aquasec/trivy:latest
+    command:
+    - sh
+    - -c
+    - "cp /usr/local/bin/trivy /workspace/ && chmod +x /workspace/trivy"
   volumes:
   - name: docker-sock
     hostPath:
