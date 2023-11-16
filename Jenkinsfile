@@ -66,8 +66,6 @@ spec:
 
                             sh "docker push $backendImageTag"
 
-
-                            sh " docker scout quickview $backendImageTag"
                   }
                 }
               }
@@ -94,8 +92,6 @@ spec:
                         sh "docker build -t $frontendImageTag ."
 
                         sh "docker push $frontendImageTag"
-
-                        sh " docker scout quickview $frontendImageTag"
 
                     }
                 }
