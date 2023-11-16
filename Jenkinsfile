@@ -99,30 +99,30 @@ spec:
             }
         }
 
-         stage('Security Scan with Trivy') {
-            steps {
-                container('docker') {
-                    script {
-                        def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
-                        def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
+        stage('Security Scan with Trivy') {
+    steps {
+        container('docker') {
+            script {
+                def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
+                def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
 
-                        sh "trivy image --exit-code 0 --severity HIGH,CRITICAL $backendImageTag"
-                        sh "trivy image --exit-code 0 --severity HIGH,CRITICAL $frontendImageTag"
-                    }
-                }
+                sh "trivy image --exit-code 0 --severity HIGH,CRITICAL $backendImageTag"
+                sh "trivy image --exit-code 0 --severity HIGH,CRITICAL $frontendImageTag"
             }
-
-                  post {
-              always {
-                 echo "Security scan completed."
-              }
-              success {
-                 echo "No critical vulnerabilities found."
-              }
-              failure {
-                  error "Critical vulnerabilities found. Fix before deploying."
-              }
         }
+    }
+    post {
+        always {
+            echo "Security scan completed."
+        }
+        success {
+            echo "No critical vulnerabilities found."
+        }
+        failure {
+            error "Critical vulnerabilities found. Fix before deploying."
+        }
+    }
+}
 
           stage('Deploy to Kubernetes') {
             steps {
@@ -145,4 +145,3 @@ spec:
       
         }
     }
-}
