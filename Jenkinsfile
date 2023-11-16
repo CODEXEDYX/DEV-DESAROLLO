@@ -24,7 +24,7 @@ spec:
     - name: docker-sock
       mountPath: /var/run/docker.sock
   - name: trivy
-    image: aquasec/trivy:0.47.0
+    image: aquasec/trivy:latest
     command:
     - sh
     - -c
@@ -112,6 +112,7 @@ spec:
                 def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
                 def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
 
+                sh "trivy --version"
                 sh "trivy image --exit-code 0 --severity HIGH,CRITICAL $backendImageTag"
                 sh "trivy image --exit-code 0 --severity HIGH,CRITICAL $frontendImageTag"
             }
