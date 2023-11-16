@@ -28,7 +28,7 @@ spec:
     command:
     - sh
     - -c
-    - "cp /usr/local/bin/trivy /workspace/ && chmod +x /workspace/trivy"
+    - "cp /usr/local/bin/trivy /workspace/trivy && chmod +x /workspace/trivy"
   volumes:
   - name: docker-sock
     hostPath:
