@@ -23,12 +23,6 @@ spec:
     volumeMounts:
     - name: docker-sock
       mountPath: /var/run/docker.sock
-  - name: trivy
-    image: aquasec/trivy:latest
-    command:
-    - sh
-    - -c
-    - "mkdir -p /workspace && cp /usr/local/bin/trivy /workspace/trivy && chmod +x /workspace/trivy"
   volumes:
   - name: docker-sock
     hostPath:
@@ -107,14 +101,14 @@ spec:
 
         stage('Security Scan with Trivy') {
     steps {
-        container('docker') {
+        container('trivy') {
             script {
                 def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
                 def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
 
                 sh "trivy --version"
-                sh "trivy image --exit-code 0 --severity HIGH,CRITICAL $backendImageTag"
-                sh "trivy image --exit-code 0 --severity HIGH,CRITICAL $frontendImageTag"
+                sh "trivy image --exit-code 1 --severity HIGH,CRITICAL $backendImageTag"
+                sh "trivy image --exit-code 1 --severity HIGH,CRITICAL $frontendImageTag"
             }
         }
     }
