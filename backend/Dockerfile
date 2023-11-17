@@ -1,10 +1,12 @@
 FROM node:18.18-alpine3.18
 
-WORKDIR /home/app
+WORKDIR /app
 
-COPY . .
+COPY package*.json ./
 
 RUN yarn install --production
+
+EXPOSE 4000
 
 CMD ["node", "index.js"]
 
