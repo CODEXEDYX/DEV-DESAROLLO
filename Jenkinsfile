@@ -47,14 +47,14 @@ spec:
 						    dir('backend') {
                 script {
                     sh "trivy --version"
-                    sh "trivy filesystem --exit-code 0 --severity HIGH,CRITICAL ."
+                    sh "trivy fs --exit-code 0 --severity HIGH,CRITICAL ."
                     }
 					}
 
 					  dir('frontend') {
 								script{
 								    sh "trivy --version"
-                    sh "trivy filesystem --exit-code 0 --severity HIGH,CRITICAL ." 
+                    sh "trivy fs --exit-code 0 --severity HIGH,CRITICAL ." 
 							 } 
 								}
                 }
