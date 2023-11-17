@@ -23,6 +23,12 @@ spec:
     volumeMounts:
     - name: docker-sock
       mountPath: /var/run/docker.sock
+  - name: trivy
+    image: aquasec/trivy:latest
+    command:
+    - sleep
+    args:
+    - infinity
   volumes:
   - name: docker-sock
     hostPath:
