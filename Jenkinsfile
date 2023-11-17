@@ -38,6 +38,29 @@ spec:
     }
 
     stages {
+
+
+
+		 stage('Security Scan and Build Backend') {
+            steps {
+				       container('trivy') {
+						    dir('backend') {
+                script {
+                    sh "trivy --version"
+                    sh "trivy filesystem --exit-code 1 --severity HIGH,CRITICAL ."
+                    }
+					}
+
+					  dir('frontend') {
+								script{
+								    sh "trivy --version"
+                    sh "trivy filesystem --exit-code 1 --severity HIGH,CRITICAL ." 
+							 } 
+								}
+                }
+					   }
+            }
+
     
 
     stage('Login-Into-Docker') {
@@ -107,20 +130,7 @@ spec:
 
 
 
-stage('Security Scan with Trivy') {
-    steps {
-        container('trivy') {
-            script {
-                def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
-                def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
 
-                sh "trivy --version"
-                sh "trivy image --exit-code 1 --severity HIGH,CRITICAL $backendImageTag"
-                sh "trivy image --exit-code 1 --severity HIGH,CRITICAL $frontendImageTag"
-            }
-        }
-    }
-}
 
           stage('Deploy to Kubernetes') {
             steps {
