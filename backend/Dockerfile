@@ -1,4 +1,4 @@
-FROM node:18.17.1-apline3.14
+FROM node:18.18-apline3.18
 
 WORKDIR /home/app
 
