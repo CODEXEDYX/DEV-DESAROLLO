@@ -11,7 +11,7 @@ COPY . .
 # Construya la aplicación React para producción
 RUN yarn build
 # Use Nginx como servidor de producción
-FROM nginx:1.24.0-alpine3.17
+FROM nginx:1.24.0
 # Copie la aplicación React construida al directorio del servidor web de Nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 # Exponer el puerto 80 para el servidor Nginx
