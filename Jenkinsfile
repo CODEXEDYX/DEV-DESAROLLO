@@ -137,8 +137,8 @@ spec:
                 def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
                 def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
                 sh "trivy --version"
-                sh "trivy image --exit-code 1 --severity CRITICAL $backendImageTag"
-                sh "trivy image --exit-code 1 --severity CRITICAL $frontendImageTag"
+                sh "trivy image --no-progress --exit-code 1 --severity MEDIUM,HIGH,CRITICAL $backendImageTag"
+                sh "trivy image --no-progress --exit-code 1 --severity MEDIUM,HIGH,CRITICAL $frontendImageTag"
             }
         }
     }
