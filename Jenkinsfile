@@ -134,11 +134,11 @@ spec:
     steps {
         container('trivy') {
             script {
-                def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
                 def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
+                def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
                 sh "trivy --version"
-                sh "trivy image --exit-code 1 --severity HIGH,CRITICAL $frontendImageTag"
                 sh "trivy image --exit-code 1 --severity HIGH,CRITICAL $backendImageTag"
+                sh "trivy image --exit-code 1 --severity HIGH,CRITICAL $frontendImageTag"
             }
         }
     }
