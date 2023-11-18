@@ -4,10 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN apk update && apk upgrade \
-    && apk add --no-cache openssl=3.0.12-r0 \
-    && apk add --no-cache libressl=3.0.12-r0 \
-    && yarn install --production
+RUN yarn install --production
 
 EXPOSE 4000
 
