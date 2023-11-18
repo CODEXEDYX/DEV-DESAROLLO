@@ -47,14 +47,14 @@ spec:
 						    dir('backend') {
                 script {
                     sh "trivy --version"
-                    sh "trivy fs --exit-code 0 --severity HIGH,CRITICAL ."
+                    sh "trivy fs --exit-code 0 --severity UNKNOWN,LOW,HIGH,CRITICAL ."
                     }
 					}
 
 					  dir('frontend') {
 								script{
 								    sh "trivy --version"
-                    sh "trivy fs --exit-code 0 --severity HIGH,CRITICAL ." 
+                    sh "trivy fs --exit-code 0 --severity UNKNOWN,LOW,HIGH,CRITICAL ." 
 							 } 
 								}
                 }
@@ -137,8 +137,8 @@ spec:
                 def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
                 def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
                 sh "trivy --version"
-                sh "trivy image --no-progress --exit-code 1 --severity MEDIUM,HIGH,CRITICAL $backendImageTag"
-                sh "trivy image --no-progress --exit-code 1 --severity MEDIUM,HIGH,CRITICAL $frontendImageTag"
+                sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $backendImageTag"
+                sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $frontendImageTag"
             }
         }
     }
