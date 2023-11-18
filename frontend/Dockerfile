@@ -9,7 +9,7 @@ RUN yarn install --production
 # Copiar el código completo de la aplicación al contenedor
 COPY . .
 # Construya la aplicación React para producción
- RUN yarn build
+RUN yarn build
 # Use Nginx como servidor de producción
 FROM nginx:1.24.0-alpine3.17
 # Copie la aplicación React construida al directorio del servidor web de Nginx
