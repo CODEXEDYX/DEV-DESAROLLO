@@ -1,6 +1,6 @@
 
 # Utilice el tiempo de ejecución oficial de Node.js como imagen base
-FROM node:21-alpine3.17
+FROM node:20.9.0-alpine3.17
 # Establezca el directorio de trabajo en el contenedor
 WORKDIR /app
 # Copie package.json y package-lock.json al directorio de trabajo
