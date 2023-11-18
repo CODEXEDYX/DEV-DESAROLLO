@@ -37,15 +37,7 @@ spec:
         }
     }
 
-    stages {
-
-      stage('Clone') {
-      steps {
-        container('scoat') {
-          git branch: 'main', changelog: false, poll: false, url: 'https://github.com/CODEXEDYX/DEV-DESAROLLO.git'
-        }
-      }
-    }  
+    stages { 
 
 
 		 stage('Security Scan and Build Backend') {
@@ -54,14 +46,14 @@ spec:
 						    dir('backend') {
                 script {
                     sh "trivy --version"
-                    sh "trivy fs --exit-code 0 --severity UNKNOWN,LOW,HIGH,CRITICAL ."
+                    sh "trivy fs --exit-code 1 --severity UNKNOWN,LOW,HIGH,CRITICAL ."
                     }
 					}
 
 					  dir('frontend') {
 								script{
 								    sh "trivy --version"
-                    sh "trivy fs --exit-code 0 --severity UNKNOWN,LOW,HIGH,CRITICAL ." 
+                    sh "trivy fs --exit-code 1 --severity UNKNOWN,LOW,HIGH,CRITICAL ." 
 							 } 
 								}
                 }
