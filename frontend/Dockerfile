@@ -5,7 +5,7 @@ WORKDIR /app
 # Copie package.json y package-lock.json al directorio de trabajo
 COPY package*.json ./
 # Instalar dependencias
-RUN yarn install --production
+RUN yarn install
 # Copiar el código completo de la aplicación al contenedor
 COPY . .
 # Construya la aplicación React para producción
