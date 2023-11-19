@@ -129,7 +129,7 @@ spec:
 
 
 
-				stage('Security Scan with Trivy') {
+	stage('Security Scan with Trivy') {
     steps {
         container('trivy') {
             script {
