@@ -141,8 +141,8 @@ spec:
 
 
                 sh "trivy --version"
-                sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --ignore $ignoredCVEsBackend $backendImageTag"
-                sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --ignore $ignoredCVEsFrontend $frontendImageTag"
+                sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL  $backendImageTag --ignore $ignoredCVEsBackend"
+                sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $frontendImageTag --ignore $ignoredCVEsFrontend"
             }
         }
     }
