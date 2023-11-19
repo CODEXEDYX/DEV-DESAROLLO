@@ -74,6 +74,16 @@ spec:
     }
 }
 
+     stage('Check kubectl version') {
+            steps {
+                container('docker') {
+                    script {
+                        sh 'kubectl version'
+                    }
+                }
+            }
+        }
+
   
         stage('Build Backend') {
             steps {
