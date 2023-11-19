@@ -78,7 +78,7 @@ spec:
         stage('Build Backend') {
             steps {
 
-                 nodejs('NodeJS-18.17.1'){
+                 nodejs('NodeJS-20.9.0'){
                           sh 'yarn -v'
 
                           sh 'yarn install'
@@ -102,7 +102,7 @@ spec:
         stage('Build Frontend') {
             steps {
 
-              nodejs('NodeJS-18.17.1'){
+              nodejs('NodeJS-20.9.0'){
                           sh 'yarn -v'
 
                           sh 'yarn install'
