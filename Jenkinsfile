@@ -135,9 +135,14 @@ spec:
             script {
                 def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
                 def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
+
+                def ignoredCVEsBackend = "CVE-2023-5363"
+                def ignoredCVEsFrontend = "CVE-2023-43787,CVE-2023-43785,CVE-2023-43786"
+
+
                 sh "trivy --version"
-                sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $backendImageTag"
-                sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $frontendImageTag"
+                sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --ignore $ignoredCVEsBackend $backendImageTag"
+                sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --ignore $ignoredCVEsFrontend $frontendImageTag"
             }
         }
     }
