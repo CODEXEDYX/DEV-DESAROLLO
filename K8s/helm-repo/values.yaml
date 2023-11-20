@@ -13,7 +13,7 @@ mexpress_port: 8081
 # backend aplicacion de desarollo
 
 backend_replicase: 1
-backend_images: codexedyx/jenkins-backend:37.0
+backend_images: codexedyx/jenkins-backend:49.0
 backend_port: 4000
 
 
