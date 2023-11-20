@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 data:
   service.webhook.jenkins: |
-    url: http://192.168.59.120:30000/job/my_backend/build?token=11c016ab9402e40756a4c3535008cfb095
+    url: http://192.168.59.120:30000/job/my_backend/build
     basicAuth:
       secretName: webhookk
   template.jenkins-trigger: |
