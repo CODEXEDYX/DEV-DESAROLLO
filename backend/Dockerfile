@@ -1,12 +1,10 @@
 FROM node:20.9.0-alpine3.17
 
-WORKDIR /app
+WORKDIR /home/app
 
 COPY . .
 
 RUN yarn install --production
-
-EXPOSE 4000
 
 CMD ["node", "index.js"]
 
