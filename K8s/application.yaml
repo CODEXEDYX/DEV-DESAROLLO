@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name:  desarollo 
   namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.trigger.jenkins.jenkins: ""
 spec:
   destination:
     name: ''
