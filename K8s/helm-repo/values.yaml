@@ -20,7 +20,7 @@ backend_port: 4000
 # frontend applicacion desarollo
 
 frontend_replicas: 1
-frontend_images: codexedyx/jenkins-frontend:39.0 
+frontend_images: codexedyx/jenkins-frontend:51.0 
 frontend_port: 80
 
 # config map
