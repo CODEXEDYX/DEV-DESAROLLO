@@ -2,7 +2,7 @@ FROM node:20.9.0-alpine3.17
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package*.json /app/
 
 RUN yarn install --production
 
