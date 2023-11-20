@@ -1,4 +1,4 @@
 const App = _ => {
-	return <p>yo veo que tengo miedo</p>
+	return <p>Arogcd conectado</p>
 }
 export default App
