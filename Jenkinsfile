@@ -32,12 +32,16 @@ spec:
   - name: kubectl
     image: bitnami/kubectl:latest
     command:
-    - cat
+    - sleep
+    args:
+    - infinity
     tty: true
   - name: argocd-cli
     image: argoproj/argocd:latest
     command:
-    - cat
+    - sleep
+    args:
+    - infinity
     tty: true
   volumes:
   - name: docker-sock
