@@ -50,18 +50,6 @@ spec:
     stages { 
 
 
- stage('Kubectl') {
-            steps {
-				       container('kubectl') {
-                script{
-                sh "kubectl version"
-                
-                }
-                }
-					   }
-            }
-
-    
 
 
 		 stage('Security Scan and Build Backend') {
