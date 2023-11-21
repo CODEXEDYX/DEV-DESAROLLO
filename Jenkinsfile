@@ -53,12 +53,20 @@ spec:
 
     stages { 
 
+      
+        stage('argocd version comprobar'){
+          steps{
+            container('argocd-cli'){
+              script{
+              sh "argocd version"
+              }
+            }
+          }
+        }
 
        stage('kubectl version comprobar') {
             steps {
 				       container('kubectl') {
-                 image 'bitnami/kubectl:latest'
-                 tty true
                 script{
                  sh "kubectl version"
                 } 
@@ -66,17 +74,6 @@ spec:
 					   }
             }
 
-        stage('argocd version comprobar'){
-          steps{
-            container('argocd-cli'){
-              image 'argoproj/argocd:latest'
-              tty true
-              script{
-              sh "argocd version"
-              }
-            }
-          }
-        }
 
 
 		 stage('Security Scan and Build Backend') {
