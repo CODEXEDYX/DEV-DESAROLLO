@@ -50,7 +50,7 @@ spec:
     stages { 
 
 
- stage('Security Scan and Build Backend') {
+ stage('Kubectl') {
             steps {
 				       container('kubectl') {
 
