@@ -60,7 +60,7 @@ spec:
                  image 'bitnami/kubectl:latest'
                  tty true
                 script{
-                 sh "kubectl version --request-timeout=10s"
+                 sh "kubectl version"
                 } 
                 }
 					   }
