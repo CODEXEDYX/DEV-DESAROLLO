@@ -1,6 +1,11 @@
 pipeline {
     agent {
         kubernetes {
+      containers {
+            containerTemplate(name: 'kubectl', image: 'bitnami/kubectl', command: 'cat', ttyEnabled: true)
+            containerTemplate(name: 'argocd', image: 'argoproj/argocd-cli', command: 'cat', ttyEnabled: true)
+            // ... Resto de tu configuración ...
+        }
        yaml """
 apiVersion: v1
 kind: Pod
@@ -42,6 +47,7 @@ spec:
 
 		 stage('Security Scan and Build Backend') {
             steps {
+               sh "kubectl get ns"
 				       container('trivy') {
 						    dir('backend') {
                 script {
