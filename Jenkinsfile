@@ -30,7 +30,7 @@ spec:
     args:
     - infinity
   - name: kubectl
-    image: k8s.gcr.io/kubectl
+    image: bitnami/kubectl:latest
     command:
     - bash
     - '-c'
