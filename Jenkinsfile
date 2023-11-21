@@ -32,10 +32,8 @@ spec:
   - name: kubectl
     image: bitnami/kubectl:latest
     command:
-    - bash
-    - '-c'
-    - |
-      kubectl version
+    - cat
+    tty: true
   - name: argocd-cli
     image: argoproj/argocd:latest
     command:
