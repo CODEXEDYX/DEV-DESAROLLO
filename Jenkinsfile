@@ -30,10 +30,12 @@ spec:
     args:
     - infinity
   - name: kubectl
-    image: bitnami/kubectl:latest
+    image: kubectl:latest
     command:
-    - cat
-    tty: true
+    - bash
+    - '-c'
+    - |
+      kubectl version
   - name: argocd-cli
     image: argoproj/argocd:latest
     command:
