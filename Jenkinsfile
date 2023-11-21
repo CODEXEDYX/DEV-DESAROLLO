@@ -35,7 +35,7 @@ spec:
     - cat
     tty: true
   - name: argocd-cli
-    image: argoproj/argocd-cli:latest
+    image: argoproj/argocd-cli
     command:
     - cat
     tty: true
