@@ -53,9 +53,10 @@ spec:
  stage('Kubectl') {
             steps {
 				       container('kubectl') {
-
+                script{
                 sh "kubectl version"
                 
+                }
                 }
 					   }
             }
