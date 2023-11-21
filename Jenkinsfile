@@ -94,6 +94,10 @@ spec:
                           sh 'yarn install'
                   }
 
+
+                  sh "kubectl version"
+                  sh "argocd version"
+
                container('docker') {
                 dir('backend') {
                     script {
