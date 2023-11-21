@@ -32,8 +32,9 @@ spec:
   - name: kubectl
     image: bitnami/kubectl:latest
     command:
-    - cat
-    tty: true
+    - sh
+    - -c
+    - "cat && sleep infinity"
   - name: argocd-cli
     image: argoproj/argocd:latest
     command:
