@@ -50,6 +50,22 @@ spec:
     stages { 
 
 
+       stage('Security Scan and Build Backend') {
+            steps {
+				       container('kubectl') {
+
+                sh "kubectl version"
+                }
+					   }
+            }
+
+        stage('argocd'){
+          steps{
+            container('argocd-cli'){
+              sh "argocd version"
+            }
+          }
+        }
 
 
 		 stage('Security Scan and Build Backend') {
