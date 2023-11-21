@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name:  desarollo 
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.my-trigger-name.jenkins: ""
+spec:
+  destination:
+    name: ''
+    namespace: app-desarollo
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: helm-repo
+    repoURL: 'https://github.com/CODEXEDYX/DESAROLLO-k8s'
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  sources: []
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
