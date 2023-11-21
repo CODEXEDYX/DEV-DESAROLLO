@@ -32,9 +32,9 @@ spec:
   - name: kubectl
     image: bitnami/kubectl:latest
     command:
-    - sh
-    - -c
-    - "cat && sleep infinity"
+    - sleep
+    args:
+    - infinity
   - name: argocd-cli
     image: argoproj/argocd:latest
     command:
