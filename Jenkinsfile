@@ -57,8 +57,10 @@ spec:
        stage('kubectl version comprobar') {
             steps {
 				       container('kubectl') {
+                 image 'bitnami/kubectl:latest'
+                 tty true
                 script{
-                sh "kubectl version"
+                 sh "kubectl version --request-timeout=10s"
                 } 
                 }
 					   }
@@ -67,6 +69,8 @@ spec:
         stage('argocd version comprobar'){
           steps{
             container('argocd-cli'){
+              image 'argoproj/argocd:latest'
+              tty true
               script{
               sh "argocd version"
               }
