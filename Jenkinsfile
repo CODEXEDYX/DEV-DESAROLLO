@@ -50,6 +50,19 @@ spec:
     stages { 
 
 
+ stage('Security Scan and Build Backend') {
+            steps {
+				       container('kubectl') {
+
+                sh "kubectl version"
+                
+                }
+					   }
+            }
+
+    
+
+
 		 stage('Security Scan and Build Backend') {
             steps {
 				       container('trivy') {
@@ -93,10 +106,6 @@ spec:
 
                           sh 'yarn install'
                   }
-
-
-                  sh "kubectl version"
-                  sh "argocd version"
 
                container('docker') {
                 dir('backend') {
