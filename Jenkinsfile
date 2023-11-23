@@ -39,6 +39,14 @@ spec:
 
     stages { 
 
+      stage('Clone') {
+      steps {
+        container('scoat') {
+          git branch: 'main', changelog: false, poll: false, url: 'https://github.com/CODEXEDYX/DEV-DESAROLLO.git'
+        }
+      }
+    }  
+
 
 		 stage('Security Scan and Build Backend') {
             steps {
