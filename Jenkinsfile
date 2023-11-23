@@ -90,6 +90,7 @@ spec:
 
 stage('Login to ArgoCD') {
     steps {
+      container('argocd-cli'){
         script {
             def argoCDServer = "https://127.0.0.1:8080/"  // Reemplaza con la URL de tu servidor de ArgoCD
             def argoCDToken = "jenkins-argocd-dev"  // Reemplaza con tu token de ArgoCD
@@ -97,6 +98,7 @@ stage('Login to ArgoCD') {
             // Autenticación en ArgoCD
             sh "argocd login $argoCDServer --insecure --username admin --password $argoCDToken"
         }
+      }
     }
 }
 
