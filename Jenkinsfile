@@ -83,7 +83,7 @@ spec:
 stage('Login to ArgoCD') {
     steps {
         script {
-            sh "curl -LO https://github.com/argoproj/argo-cd/releases/download/v2.7.2/argocd-linux-amd64 && chmod +x argocd-linux-amd64 && mv argocd-linux-amd64 /usr/local/bin/argocd"
+            sh "curl -LO https://github.com/argoproj/argo-cd/releases/download/v2.7.2/argocd-linux-amd64 && chmod +x argocd-linux-amd64 && mv argocd-linux-amd64 ~/argocd"
             def argoCDServer = "https://127.0.0.1:8080/"  // Reemplaza con la URL de tu servidor de ArgoCD
             def argoCDToken = "jenkins-argocd-dev"  // Reemplaza con tu token de ArgoCD
 
