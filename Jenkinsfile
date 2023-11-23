@@ -53,28 +53,6 @@ spec:
 
     stages { 
 
-      
-        stage('argocd version comprobar'){
-          steps{
-            container('argocd-cli'){
-              script{
-              sh "argocd version"
-              }
-            }
-          }
-        }
-
-       stage('kubectl version comprobar') {
-            steps {
-				       container('kubectl') {
-                script{
-                 sh "kubectl version"
-                } 
-                }
-					   }
-            }
-
-
 
 		 stage('Security Scan and Build Backend') {
             steps {
@@ -109,6 +87,78 @@ spec:
         }
     }
 }
+
+stage('Login to ArgoCD') {
+    steps {
+        script {
+            def argoCDServer = "https://127.0.0.1:8080/"  // Reemplaza con la URL de tu servidor de ArgoCD
+            def argoCDToken = "jenkins-argocd-dev"  // Reemplaza con tu token de ArgoCD
+
+            // Autenticación en ArgoCD
+            sh "argocd login $argoCDServer --insecure --username admin --password $argoCDToken"
+        }
+    }
+}
+
+
+stage('Deploy to ArgoCD') {
+    steps {
+        script {
+            def appName = "desarollo"  // Reemplaza con el nombre de tu aplicación en ArgoCD
+            def argoServer = "https://127.0.0.1:8080/"  // Reemplaza con la URL de tu servidor de ArgoCD
+            def argoToken = "jenkins-argocd-dev"  // Reemplaza con tu token de ArgoCD
+
+            // Configuración de aplicación para ArgoCD
+            sh "kubectl apply -f ./path/to/your/argo-cd-app-config.yaml"
+
+            // Despliega la aplicación en ArgoCD
+            sh "argocd app sync $appName --server $argoServer --auth-token $argoToken"
+        }
+    }
+}
+
+
+
+stage('ArgoCD Notification') {
+    steps {
+        script {
+            def argoCDServer = "https://127.0.0.1:8080/"  // Reemplaza con la URL de tu servidor de ArgoCD
+            def argoCDToken = "jenkins-argocd-dev"  // Reemplaza con tu token de ArgoCD
+
+            def argoCDNotificationConfig = """
+              apiVersion: v1
+              kind: ConfigMap
+              metadata:
+                name: argocd-notifications-cm
+                namespace: argocd
+              data:
+                service.webhook.jenkins: |
+                  url: $argoCDServer/api/webhook?token=$argoCDToken
+                  headers:
+                    - name: Content-Type
+                      value: application/json
+                  insecureSkipVerify: true
+                template.github-commit-status: |
+                  webhook:
+                    jenkins:
+                      method: POST
+                      path: /generic-webhook-trigger/invoke
+                      body: |
+                        {
+                          "jobName": "my_backend",
+                          "status": "\$app.status.operationState.phase",
+                          "commitSHA": "\$app.spec.source.targetRevision"
+                        }
+                trigger.my-trigger-name: |
+                  - when: app.status.operationState.phase in ['Succeeded']
+                    send: [github-commit-status]
+            """
+
+            sh "echo '$argoCDNotificationConfig' | kubectl apply -f -"
+        }
+    }
+}
+
 
   
         stage('Build Backend') {
