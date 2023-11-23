@@ -161,6 +161,10 @@ spec:
 
                        env.BACKEND_IMAGE_TAG = backendImageTag
                        env.FRONTEND_IMAGE_TAG = frontendImageTag
+
+
+                       echo "Backend Image Tag: ${BACKEND_IMAGE_TAG}"
+                       echo "Frontend Image Tag: ${FRONTEND_IMAGE_TAG}"
                        
             }
                     }
