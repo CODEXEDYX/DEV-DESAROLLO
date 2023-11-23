@@ -29,12 +29,6 @@ spec:
     - sleep
     args:
     - infinity
-  - name: helm
-    image: fluxcd/helm-operator:latest
-    command:
-    - sleep
-    args:
-    - infinity
   volumes:
   - name: docker-sock
     hostPath:
@@ -44,17 +38,6 @@ spec:
     }
 
     stages { 
-
-
-      stage('helm'){
-        steps{
-          container('helm'){
-            script{
-              sh "helm repo list"
-            }
-          }
-        }
-      }
 
 
 		 stage('Security Scan and Build Backend') {
