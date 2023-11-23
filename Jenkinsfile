@@ -30,7 +30,7 @@ spec:
     args:
     - infinity
   - name: argocd
-    image: argoproj/argocd:latest
+    image: argoproj/argocli:latest
     command:
     - sleep
     args:
@@ -82,15 +82,15 @@ spec:
 
 stage('Login to ArgoCD') {
     steps {
+        container('argocd'){
+
         script {
-            sh "curl -LO https://github.com/argoproj/argo-cd/releases/download/v2.7.2/argocd-linux-amd64 && chmod +x argocd-linux-amd64 && mv argocd-linux-amd64 ~/argocd"
             def argoCDServer = "https://127.0.0.1:8080/"  // Reemplaza con la URL de tu servidor de ArgoCD
             def argoCDToken = "jenkins-argocd-dev"  // Reemplaza con tu token de ArgoCD
 
-            sh 'export PATH=$PATH:~/argocd'
-
             // Autenticación en ArgoCD
             sh "argocd login $argoCDServer --insecure --username admin --password $argoCDToken"
+        }
         }
       }
 }
