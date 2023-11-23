@@ -30,7 +30,7 @@ spec:
     args:
     - infinity
   - name: argocd
-    image: argoproj/argocd:v2.6.15
+    image: argoproj/argocd:latest
   volumes:
   - name: docker-sock
     hostPath:
