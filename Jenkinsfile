@@ -29,6 +29,12 @@ spec:
     - sleep
     args:
     - infinity
+  - name: helm
+    image: fluxcd/helm-operator:latest
+    command:
+    - sleep
+    args:
+    - infinity
   volumes:
   - name: docker-sock
     hostPath:
@@ -38,6 +44,17 @@ spec:
     }
 
     stages { 
+
+
+      stage('helm'){
+        steps{
+          container('helm'){
+            script{
+              sh "helm repo list"
+            }
+          }
+        }
+      }
 
 
 		 stage('Security Scan and Build Backend') {
@@ -153,19 +170,12 @@ spec:
                     script {
                        
                        def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
+
                        def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
 
-
                        sh "sed -i 's|backend_images:.*|backend_images: $backendImageTag|' ./helm-repo/values.yaml"
+
                        sh "sed -i 's|frontend_images:.*|frontend_images: $frontendImageTag|' ./helm-repo/values.yaml"
-
-                       //env.BACKEND_IMAGE_TAG = backendImageTag
-                       //env.FRONTEND_IMAGE_TAG = frontendImageTag
-
-
-                       //echo "Backend Image Tag: ${BACKEND_IMAGE_TAG}"
-                       //echo "Frontend Image Tag: ${FRONTEND_IMAGE_TAG}"
-                       
             }
                     }
                 }
