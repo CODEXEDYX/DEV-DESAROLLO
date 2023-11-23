@@ -146,23 +146,31 @@ spec:
     }
 }
 
-stage('Deploy to Kubernetes') {
-    steps {
-        dir('K8s') {
-          script {             
-                       def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
 
+  stage('Deploy to Kubernetes') {
+            steps {
+                dir('K8s') {
+                    script {
+                       
+                       //def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
+                       //def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
+                       //sh "sed -i 's|backend_images:.*|backend_images: $backendImageTag|' ./helm-repo/values.yaml"
+                       //sh "sed -i 's|frontend_images:.*|frontend_images: $frontendImageTag|' ./helm-repo/values.yaml"
+
+
+                       def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
                        def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
 
-                       sh "sed -i 's|backend_images:.*|backend_images: $backendImageTag|' ./helm-repo/values.yaml"
-
-                       sh "sed -i 's|frontend_images:.*|frontend_images: $frontendImageTag|' ./helm-repo/values.yaml"
+                       env.BACKEND_IMAGE_TAG = backendImageTag
+                       env.FRONTEND_IMAGE_TAG = frontendImageTag
                        
             }
                     }
                 }
             }
-        }
+
+                      
+}
 
 post {
   always {
