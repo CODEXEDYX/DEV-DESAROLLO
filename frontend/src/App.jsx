@@ -1,4 +1,4 @@
 const App = _ => {
-	return <p>Arogcd conectado 2 euros</p>
+	return <p>Arogcd conectado 2 eurosssssssss</p>
 }
 export default App
