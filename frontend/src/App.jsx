@@ -1,4 +1,4 @@
 const App = _ => {
-	return <p>Paoc esfdsddsdssdssds</p>
+	return <p>pablo esta bien por que veo bien</p>
 }
 export default App
