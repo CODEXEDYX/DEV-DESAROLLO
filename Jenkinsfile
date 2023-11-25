@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-       yaml """
+            yaml """
 apiVersion: v1
 kind: Pod
 metadata:
@@ -37,136 +37,101 @@ spec:
         }
     }
 
-      environment {
+    environment {
         APP_VERSION = '0.0.1'
-        IMG_NAME = 'app1'
-        DOCKER_REGISTRY = 'https://gcr.io'
-        DOCKER_REPO = 'gcr.io/YOUR_REPO'
-        ARGOCD_SERVER = 'cd.domain.tld'
-        ARGO_PROJECT = 'testargo'
-        NAMESPACE = 'argotest'
+        DOCKER_REPO_BACKEND = 'codexedyx/jenkins-backend'
+        DOCKER_REPO_FRONTEND = 'codexedyx/jenkins-frontend'
+        ARGOCD_SERVER = '127.0.0.1:8080'
+        ARGO_PROJECT = 'miapp1'
+        NAMESPACE = 'argocd'
     }
 
-    stages {  
-
-
-		 stage('Security Scan and Build Backend') {
+    stages {
+        stage('Security Scan and Build Backend') {
             steps {
-				       container('trivy') {
-						    dir('backend') {
-                script {
-                    sh "trivy --version"
-                    sh "trivy fs --exit-code 1 --severity UNKNOWN,LOW,HIGH,CRITICAL ."
+                container('trivy') {
+                    dir('backend') {
+                        script {
+                            sh "trivy --version"
+                            sh "trivy fs --exit-code 1 --severity UNKNOWN,LOW,HIGH,CRITICAL ."
+                        }
                     }
-					}
-
-					  dir('frontend') {
-								script{
-								    sh "trivy --version"
-                    sh "trivy fs --exit-code 1 --severity UNKNOWN,LOW,HIGH,CRITICAL ." 
-							 } 
-								}
-                }
-					   }
-            }
-
-    
-
-    stage('Login-Into-Docker') {
-    steps {
-        container('docker') {
-            script {
-                withCredentials([usernamePassword(credentialsId: 'jenkins-panel', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                    sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
                 }
             }
         }
-    }
-}
 
+        stage('Login-Into-Docker') {
+            steps {
+                container('docker') {
+                    script {
+                        withCredentials([usernamePassword(credentialsId: 'jenkins-panel', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                            sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                        }
+                    }
+                }
+            }
+        }
 
-
-  
         stage('Build Backend') {
             steps {
-
-                 nodejs('NodeJS-20.9.0'){
-                          sh 'yarn -v'
-
-                          sh 'yarn install'
-                  }
-
-               container('docker') {
-                dir('backend') {
-                    script {
-              
-                            def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
-
-                            sh "docker build -t $backendImageTag ."
-
-                            sh "docker push $backendImageTag"
-
-                  }
+                nodejs('NodeJS-20.9.0') {
+                    sh 'yarn -v'
+                    sh 'yarn install'
                 }
-              }
-            }
-        }
-        stage('Build Frontend') {
-            steps {
 
-              nodejs('NodeJS-20.9.0'){
-                          sh 'yarn -v'
-
-                          sh 'yarn install'
-                  }
-
-             
-
-              container('docker')  {
-
-                dir('frontend') {
-                    script {                        
-
-                        def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
-
-                        sh "docker build -t $frontendImageTag ."
-
-                        sh "docker push $frontendImageTag"
-
+                container('docker') {
+                    dir('backend') {
+                        script {
+                             def backendImageTag = "${DOCKER_REPO_BACKEND}:${APP_VERSION}"
+                            sh "docker build -t $backendImageTag ."
+                            sh "docker push $backendImageTag"
+                        }
                     }
                 }
-              }           
             }
         }
 
+        stage('Build Frontend') {
+            steps {
+                nodejs('NodeJS-20.9.0') {
+                    sh 'yarn -v'
+                    sh 'yarn install'
+                }
 
-
-	stage('Security Scan with Trivy') {
-    steps {
-        container('trivy') {
-            script {
-                def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
-                def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
-
-                sh "trivy --version"
-                sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $backendImageTag"
-                sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $frontendImageTag"
+                container('docker') {
+                    dir('frontend') {
+                        script {
+                            def frontendImageTag = "${DOCKER_REPO_FRONTEND}:${APP_VERSION}"
+                            sh "docker build -t $frontendImageTag ."
+                            sh "docker push $frontendImageTag"
+                        }
+                    }
+                }
             }
         }
-    }
-}
 
+        stage('Security Scan with Trivy') {
+            steps {
+                container('trivy') {
+                    script {
+                        def backendImageTag = "${DOCKER_REPO_BACKEND}:${APP_VERSION}"
+                        def frontendImageTag = "${DOCKER_REPO_FRONTEND}:${APP_VERSION}"
+                        sh "trivy --version"
+                        sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $backendImageTag"
+                        sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $frontendImageTag"
+                    }
+                }
+            }
+        }
 
-     stage('Deploy with ArgoCD') {
+        stage('Deploy with ArgoCD') {
             steps {
                 script {
-                    withCredentials([
-                        string(credentialsId: 'argo_tocken', variable: 'ARGO_TOKEN'),
-                        file(credentialsId: 'gcr-private-repo-reader', variable: 'GCR_KEY')
-                    ]) {
+                    withCredentials([ string(credentialsId: 'argocd_token', variable: 'ARGO_TOKEN')]) {
                         sh "curl -sSL -k -o argocd https://${ARGOCD_SERVER}/download/argocd-linux-amd64"
                         sh "chmod 755 argocd"
-                        sh "./argocd app set ${ARGO_PROJECT} -p dockerImage=\"${DOCKER_REPO}/${IMG_NAME}:${APP_VERSION}-${BUILD_NUMBER}\" -p namespace=\"${NAMESPACE}\" --auth-token ${ARGO_TOKEN}"
+                        sh "./argocd app set ${ARGO_PROJECT} -p backend_images=\"${DOCKER_REPO_BACKEND}:${APP_VERSION}\" -p namespace=\"${NAMESPACE}\" --auth-token ${ARGO_TOKEN}"
+                        sh "./argocd app set ${ARGO_PROJECT} -p frontend_images=\"${DOCKER_REPO_FRONTEND}:${APP_VERSION}\" -p namespace=\"${NAMESPACE}\" --auth-token ${ARGO_TOKEN}"
                         sh "./argocd app sync ${ARGO_PROJECT} --auth-token ${ARGO_TOKEN}"
                         sh "rm argocd"
                         echo "Deployed done"
@@ -174,14 +139,13 @@ spec:
                 }
             }
         }
-  
-}
+    }
 
-post {
-  always {
-      container('docker') {
-        sh 'docker logout'
+    post {
+        always {
+            container('docker') {
+                sh 'docker logout'
+            }
+        }
+    }
 }
-  }
-}
-  }
