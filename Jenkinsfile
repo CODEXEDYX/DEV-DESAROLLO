@@ -127,7 +127,7 @@ spec:
         stage('Deploy with ArgoCD') {
             steps {
                 script {
-                    withCredentials([ string(credentialsId: 'argocd_token', variable: 'ARGO_TOKEN')]) {
+                    withCredentials([ string(credentialsId: 'argocd_tocken', variable: 'ARGO_TOKEN')]) {
                         sh "curl -sSL -k -o argocd https://${ARGOCD_SERVER}/download/argocd-linux-amd64"
                         sh "chmod 755 argocd"
                         sh "./argocd app set ${ARGO_PROJECT} -p backend_images=\"${DOCKER_REPO_BACKEND}:${APP_VERSION}\" -p namespace=\"${NAMESPACE}\" --auth-token ${ARGO_TOKEN}"
