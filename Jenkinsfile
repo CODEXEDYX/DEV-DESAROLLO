@@ -37,15 +37,17 @@ spec:
         }
     }
 
-    stages { 
+      environment {
+        APP_VERSION = '0.0.1'
+        IMG_NAME = 'app1'
+        DOCKER_REGISTRY = 'https://gcr.io'
+        DOCKER_REPO = 'gcr.io/YOUR_REPO'
+        ARGOCD_SERVER = 'cd.domain.tld'
+        ARGO_PROJECT = 'testargo'
+        NAMESPACE = 'argotest'
+    }
 
-      stage('Clone') {
-      steps {
-        container('scoat') {
-          git branch: 'main', changelog: false, poll: false, url: 'https://github.com/CODEXEDYX/DEV-DESAROLLO.git'
-        }
-      }
-    }  
+    stages {  
 
 
 		 stage('Security Scan and Build Backend') {
@@ -155,24 +157,24 @@ spec:
 }
 
 
-  stage('Deploy to Kubernetes') {
+     stage('Deploy with ArgoCD') {
             steps {
-                dir('K8s') {
-                    script {
-                       
-                       def backendImageTag = "codexedyx/jenkins-backend:${BUILD_NUMBER}.0"
-
-                       def frontendImageTag = "codexedyx/jenkins-frontend:${BUILD_NUMBER}.0"
-
-                       sh "sed -i 's|backend_images:.*|backend_images: $backendImageTag|' ./helm-repo/values.yaml"
-
-                       sh "sed -i 's|frontend_images:.*|frontend_images: $frontendImageTag|' ./helm-repo/values.yaml"
-            }
+                script {
+                    withCredentials([
+                        string(credentialsId: 'argo_tocken', variable: 'ARGO_TOKEN'),
+                        file(credentialsId: 'gcr-private-repo-reader', variable: 'GCR_KEY')
+                    ]) {
+                        sh "curl -sSL -k -o argocd https://${ARGOCD_SERVER}/download/argocd-linux-amd64"
+                        sh "chmod 755 argocd"
+                        sh "./argocd app set ${ARGO_PROJECT} -p dockerImage=\"${DOCKER_REPO}/${IMG_NAME}:${APP_VERSION}-${BUILD_NUMBER}\" -p namespace=\"${NAMESPACE}\" --auth-token ${ARGO_TOKEN}"
+                        sh "./argocd app sync ${ARGO_PROJECT} --auth-token ${ARGO_TOKEN}"
+                        sh "rm argocd"
+                        echo "Deployed done"
                     }
                 }
             }
-
-                      
+        }
+  
 }
 
 post {
