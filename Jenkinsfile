@@ -41,7 +41,7 @@ spec:
         APP_VERSION = '0.0.1'
         DOCKER_REPO_BACKEND = 'codexedyx/jenkins-backend'
         DOCKER_REPO_FRONTEND = 'codexedyx/jenkins-frontend'
-        ARGOCD_SERVER = 'argocd-server:80'
+        ARGOCD_SERVER = 'argocd-server:8080'
         ARGO_PROJECT = 'miapp1'
         NAMESPACE = 'argocd'
     }
