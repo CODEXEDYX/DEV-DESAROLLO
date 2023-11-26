@@ -132,7 +132,7 @@ spec:
                         sh "chmod 755 argocd"
                         sh "./argocd app set ${ARGO_PROJECT} -p backend_images=\"${DOCKER_REPO_BACKEND}:${APP_VERSION}\" -p namespace=\"${NAMESPACE}\" --auth-token \$ARGO_TOKEN"
                         sh "./argocd app set ${ARGO_PROJECT} -p frontend_images=\"${DOCKER_REPO_FRONTEND}:${APP_VERSION}\" -p namespace=\"${NAMESPACE}\" --auth-token \$ARGO_TOKEN"
-                        sh "./argocd app sync ${ARGO_PROJECT} --auth-token ${ARGO_TOKEN}"
+                        sh "./argocd app sync ${ARGO_PROJECT} --auth-token \$ARGO_TOKEN"
                         sh "rm argocd"
                         echo "Deployed done"
                     }
