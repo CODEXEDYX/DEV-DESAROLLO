@@ -38,12 +38,12 @@ spec:
     }
 
     environment {
-        APP_VERSION = '0.0.1'
-        DOCKER_REPO_BACKEND = 'codexedyx/jenkins-backend'
-        DOCKER_REPO_FRONTEND = 'codexedyx/jenkins-frontend'
-        ARGOCD_SERVER = 'argocd-server:8080'
-        ARGO_PROJECT = 'miapp1'
-        NAMESPACE = 'argocd'
+        APP_VERSION = '0.0.1' // la version
+        DOCKER_REPO_BACKEND = 'codexedyx/jenkins-backend' // el  nombre de las imagenes
+        DOCKER_REPO_FRONTEND = 'codexedyx/jenkins-frontend' // el nombre de la imagenes
+        ARGOCD_SERVER = 'argocd-server.argocd:80' // el servidor donede se ejcuta argocd
+        ARGO_PROJECT = 'miapp1' // el nombre del  proyecto  de argocd
+        NAMESPACE = 'podargocd' // espacio de nombre donde va a publicar el proyecto el espacio de nombres
     }
 
     stages {
