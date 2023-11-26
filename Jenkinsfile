@@ -43,7 +43,7 @@ spec:
         DOCKER_REPO_FRONTEND = 'codexedyx/jenkins-frontend' // el nombre de la imagenes
         ARGOCD_SERVER = 'argocd.local' // el servidor donede se ejcuta argocd
         ARGO_PROJECT = 'miapp1' // el nombre del  proyecto  de argocd
-        NAMESPACE = 'podargocd' // espacio de nombre donde va a publicar el proyecto el espacio de nombres
+        NAMESPACE = 'app-desarollo' // espacio de nombre donde va a publicar el proyecto el espacio de nombres
     }
 
     stages {
