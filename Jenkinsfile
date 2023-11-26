@@ -41,7 +41,7 @@ spec:
         APP_VERSION = '0.0.1' // la version
         DOCKER_REPO_BACKEND = 'codexedyx/jenkins-backend' // el  nombre de las imagenes
         DOCKER_REPO_FRONTEND = 'codexedyx/jenkins-frontend' // el nombre de la imagenes
-        ARGOCD_SERVER = 'argocd-server-ingress.argocd:80' // el servidor donede se ejcuta argocd
+        ARGOCD_SERVER = 'argocd-server' // el servidor donede se ejcuta argocd
         ARGO_PROJECT = 'miapp1' // el nombre del  proyecto  de argocd
         NAMESPACE = 'podargocd' // espacio de nombre donde va a publicar el proyecto el espacio de nombres
     }
@@ -128,7 +128,7 @@ spec:
             steps {
                 script {
                     withCredentials([ string(credentialsId: 'argocd-tocken', variable: 'ARGO_TOKEN')]) {
-                        sh "curl -sSL -k -o argocd https://${ARGOCD_SERVER}/download/argocd-linux-amd64"
+                        sh "curl -sSL -o argocd https://${ARGOCD_SERVER}/download/argocd-linux-amd64"
                         sh "chmod 755 argocd"
                         sh "./argocd app set ${ARGO_PROJECT} -p backend_images=\"${DOCKER_REPO_BACKEND}:${APP_VERSION}\" -p namespace=\"${NAMESPACE}\" --auth-token ${ARGO_TOKEN}"
                         sh "./argocd app set ${ARGO_PROJECT} -p frontend_images=\"${DOCKER_REPO_FRONTEND}:${APP_VERSION}\" -p namespace=\"${NAMESPACE}\" --auth-token ${ARGO_TOKEN}"
