@@ -1,4 +1,4 @@
 const App = _ => {
-	return <p>Pablo esta mal 👌👌👌👌👌👌👌👌👌</p>
+	return <p>Te veo mal ❤️❤️❤️❤️❤️❤️</p>
 }
 export default App
