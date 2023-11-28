@@ -60,6 +60,24 @@ spec:
             }
         }
 
+        stage('comprobar elemento'){
+            steps{
+                dir('frontend'){
+                 nodejs('NodeJS-20.9.0') {
+                    sh 'yarn -v'
+                    sh 'yarn install && yarn dev && yarn build'
+                }
+                }
+
+                dir('backend'){
+                  nodejs('NodeJS-20.9.0') {
+                    sh 'yarn -v'
+                    sh 'yarn install'
+                }
+                }
+            }
+        }
+
         stage('Login-Into-Docker') {
             steps {
                 container('docker') {
@@ -74,11 +92,6 @@ spec:
 
         stage('Build Backend') {
             steps {
-                nodejs('NodeJS-20.9.0') {
-                    sh 'yarn -v'
-                    sh 'yarn install'
-                }
-
                 container('docker') {
                     dir('backend') {
                         script {
@@ -93,11 +106,6 @@ spec:
 
         stage('Build Frontend') {
             steps {
-                nodejs('NodeJS-20.9.0') {
-                    sh 'yarn -v'
-                    sh 'yarn install'
-                }
-
                 container('docker') {
                     dir('frontend') {
                         script {
