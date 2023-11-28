@@ -10,7 +10,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: helm-repo
-    repoURL: 'https://github.com/CODEXEDYX/DESAROLLO-k8s.git'
+    repoURL: 'https://github.com/CODEXEDYX/DEV-DESAROLLO.git'
     targetRevision: HEAD
     helm:
       valueFiles:
