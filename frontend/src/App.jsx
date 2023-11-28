@@ -1,4 +1,4 @@
 const App = _ => {
-	return <p>paco 💕💕💕💕💕💕</p>
+	return <p>paco 😊😊😊😊😊😊</p>
 }
 export default App
