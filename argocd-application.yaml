@@ -9,7 +9,7 @@ spec:
     namespace: app-desarollo
     server: 'https://kubernetes.default.svc'
   source:
-    path: helm-repo
+    path: DEV-DESAROLLO/k8s/helm-repo
     repoURL: 'https://github.com/CODEXEDYX/DEV-DESAROLLO.git'
     targetRevision: HEAD
     helm:
