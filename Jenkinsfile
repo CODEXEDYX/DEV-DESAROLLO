@@ -82,7 +82,7 @@ spec:
                 container('docker') {
                     dir('backend') {
                         script {
-                             def backendImageTag = "${DOCKER_REPO_BACKEND}:${APP_VERSION}"
+                             def backendImageTag = "${DOCKER_REPO_BACKEND}:${APP_VERSION}-${BUILD_NUMBER}"
                             sh "docker build -t $backendImageTag ."
                             sh "docker push $backendImageTag"
                         }
@@ -101,7 +101,7 @@ spec:
                 container('docker') {
                     dir('frontend') {
                         script {
-                            def frontendImageTag = "${DOCKER_REPO_FRONTEND}:${APP_VERSION}"
+                            def frontendImageTag = "${DOCKER_REPO_FRONTEND}:${APP_VERSION}-${BUILD_NUMBER}"
                             sh "docker build -t $frontendImageTag ."
                             sh "docker push $frontendImageTag"
                         }
@@ -114,8 +114,8 @@ spec:
             steps {
                 container('trivy') {
                     script {
-                        def backendImageTag = "${DOCKER_REPO_BACKEND}:${APP_VERSION}"
-                        def frontendImageTag = "${DOCKER_REPO_FRONTEND}:${APP_VERSION}"
+                        def backendImageTag = "${DOCKER_REPO_BACKEND}:${APP_VERSION}-${BUILD_NUMBER}"
+                        def frontendImageTag = "${DOCKER_REPO_FRONTEND}:${APP_VERSION}-${BUILD_NUMBER}"
                         sh "trivy --version"
                         sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $backendImageTag"
                         sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $frontendImageTag"
@@ -130,8 +130,8 @@ spec:
                     withCredentials([ string(credentialsId: 'argocd-tocken', variable: 'ARGO_TOKEN')]) {
                         sh "curl -sSL -k -o argocd https://${ARGOCD_SERVER}/download/argocd-linux-amd64"
                         sh "chmod 755 argocd"
-                        sh "./argocd app set ${ARGO_PROJECT} -p backend_images=\"${DOCKER_REPO_BACKEND}:${APP_VERSION}\" -p namespace=\"${NAMESPACE}\" --auth-token \$ARGO_TOKEN --insecure"
-                        sh "./argocd app set ${ARGO_PROJECT} -p frontend_images=\"${DOCKER_REPO_FRONTEND}:${APP_VERSION}\" -p namespace=\"${NAMESPACE}\" --auth-token \$ARGO_TOKEN --insecure"
+                        sh "./argocd app set ${ARGO_PROJECT} -p backend_images=\"${DOCKER_REPO_BACKEND}:${APP_VERSION}-${BUILD_NUMBER}\" -p namespace=\"${NAMESPACE}\" --auth-token \$ARGO_TOKEN --insecure"
+                        sh "./argocd app set ${ARGO_PROJECT} -p frontend_images=\"${DOCKER_REPO_FRONTEND}:${APP_VERSION}-${BUILD_NUMBER}\" -p namespace=\"${NAMESPACE}\" --auth-token \$ARGO_TOKEN --insecure"
                         sh "./argocd app sync ${ARGO_PROJECT} --auth-token \$ARGO_TOKEN --insecure"
                         sh "rm argocd"
                         echo "Deployed done"
