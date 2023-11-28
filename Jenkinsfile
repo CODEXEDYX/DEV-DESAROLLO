@@ -60,24 +60,6 @@ spec:
             }
         }
 
-        stage('comprobar elemento'){
-            steps{
-                dir('frontend'){
-                 nodejs('NodeJS-20.9.0') {
-                    sh 'yarn -v'
-                    sh 'yarn install && yarn dev && yarn build'
-                }
-                }
-
-                dir('backend'){
-                  nodejs('NodeJS-20.9.0') {
-                    sh 'yarn -v'
-                    sh 'yarn install'
-                }
-                }
-            }
-        }
-
         stage('Login-Into-Docker') {
             steps {
                 container('docker') {
