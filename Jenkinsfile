@@ -47,7 +47,7 @@ spec:
     }
 
     stages {
-        stage('Security Scan and Build Backend') {
+        stage('Security Scan and Build Backend and Frontend') {
             steps {
                 container('trivy') {
                     dir('backend') {
@@ -56,9 +56,23 @@ spec:
                             sh "trivy fs --exit-code 1 --severity UNKNOWN,LOW,HIGH,CRITICAL ."
                         }
                     }
+                      dir('frontend') {
+                        script {
+                            sh "trivy --version"
+                            sh "trivy fs --exit-code 1 --severity UNKNOWN,LOW,HIGH,CRITICAL ."
+                        }
+                    }
                 }
             }
         }
+
+
+  stage('Scan SonarQube') {
+      steps {
+        withSonarQubeEnv(installationName: 'sonar') { 
+          sh 'sonar-scanner'
+        }
+      }
 
         stage('Login-Into-Docker') {
             steps {
@@ -71,6 +85,9 @@ spec:
                 }
             }
         }
+
+   
+    }
 
         stage('Build Backend') {
             steps {
