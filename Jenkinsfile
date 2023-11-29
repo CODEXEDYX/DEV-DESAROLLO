@@ -66,14 +66,15 @@ spec:
             }
         }
 
-
-  stage('Scan SonarQube') {
-      steps {
-        withSonarQubeEnv(installationName: 'sonar') { 
-          sh 'sonar-scanner'
+stage('Scan SonarQube') {
+    steps {
+        script {
+            withSonarQubeEnv(installationName: 'sonar') { 
+                sh 'sonar-scanner'
+            }
         }
-      }
-
+    }
+}
         stage('Login-Into-Docker') {
             steps {
                 container('docker') {
