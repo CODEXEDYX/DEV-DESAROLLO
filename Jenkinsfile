@@ -83,19 +83,6 @@ stage('SonarQube Analysis') {
 }
 
 
-stage('SonarQube Analysis') {
-    steps {
-        script {
-            withSonarQubeEnv('sonar') {
-                def scannerHome = tools 'SonarQubeScanner'
-                sh "${scannerHome}/bin/sonar-scanner"
-            }
-        }
-    }
-}
-
-
-
         stage('Login-Into-Docker') {
             steps {
                 container('docker') {
