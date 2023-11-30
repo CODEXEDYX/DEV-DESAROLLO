@@ -32,7 +32,11 @@ spec:
   - name: sonarqube
     image: sonarqube:lts
     command:
-    - sleep
+    - sh
+    - -c
+    - "curl -sSL -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.0.2311-linux.zip"
+    - "unzip sonar-scanner.zip"
+    - "export PATH=$PATH:${env.WORKSPACE}/sonar-scanner-4.6.0.2311-linux/bin"
     args:
     - infinity
   volumes:
@@ -80,12 +84,9 @@ stage('Análisis de SonarQube') {
             script {
                 withSonarQubeEnv('sonarqube-9.9.3') {   
 
-                sh "apk --no-cache add curl"
+              sh "sonar-scanner"
                 
-                sh "curl -sSL -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.0.2311-linux.zip"
-                sh "unzip sonar-scanner.zip"
-                sh "export PATH=$PATH:${env.WORKSPACE}/sonar-scanner-4.6.0.2311-linux/bin"
-                sh "sonar-scanner"
+                
              }
             }
         }
