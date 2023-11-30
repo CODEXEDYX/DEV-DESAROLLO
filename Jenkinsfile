@@ -29,6 +29,12 @@ spec:
     - sleep
     args:
     - infinity
+  - name: sonarqube
+    image: sonarqube:lts
+    command:
+    - sleep
+    args:
+    - infinity
   volumes:
   - name: docker-sock
     hostPath:
