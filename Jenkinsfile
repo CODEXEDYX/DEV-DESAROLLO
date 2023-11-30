@@ -66,13 +66,14 @@ spec:
             }
         }
 
-stage('Scan SonarQube') {
-    steps {
-            withSonarQubeEnv(installationName: 'sonar') { 
-               sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
-        }
+
+stage('SonarQube analysis') {
+    def scannerHome = tool 'SonarScanner 4.0';
+    withSonarQubeEnv('sonar') { // If you have configured more than one global server connection, you can specify its name
+      sh "${scannerHome}/bin/sonar-scanner"
     }
-}
+  }
+
         stage('Login-Into-Docker') {
             steps {
                 container('docker') {
