@@ -79,6 +79,7 @@ stage('Análisis de SonarQube') {
     steps {
         container('sonarqube') {
             script {
+                 sh "apk add --no-cache curl"
                 withSonarQubeEnv('sonarqube-9.9.3') {   
 
               sh "sonar-scanner"
