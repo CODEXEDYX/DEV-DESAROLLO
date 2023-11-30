@@ -72,7 +72,7 @@ stage('SonarQube Analysis') {
     steps {
         script {
             withSonarQubeEnv('sonar') {
-                def scannerHome = tool 'SonarQubeScanner'
+                def scannerHome = tools 'SonarQubeScanner'
                 sh "${scannerHome}/bin/sonar-scanner"
             }
         }
