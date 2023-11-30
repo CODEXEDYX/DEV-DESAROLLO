@@ -79,6 +79,10 @@ stage('Análisis de SonarQube') {
         container('sonarqube') {
             script {
                 withSonarQubeEnv('sonarqube-9.9.3') {   
+                
+                sh "curl -sSL -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.0.2311-linux.zip"
+                sh "unzip sonar-scanner.zip"
+                sh "export PATH=$PATH:${env.WORKSPACE}/sonar-scanner-4.6.0.2311-linux/bin"
                 sh "sonar-scanner"
              }
             }
