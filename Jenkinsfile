@@ -33,7 +33,6 @@ spec:
     image: sonarqube:lts
     command:
     - sh
-    - -c
     - "curl -sSL -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.0.2311-linux.zip"
     - "unzip sonar-scanner.zip"
     - "export PATH=$PATH:${env.WORKSPACE}/sonar-scanner-4.6.0.2311-linux/bin"
