@@ -68,6 +68,7 @@ spec:
 
 
 
+
         stage('Login-Into-Docker') {
             steps {
                 container('docker') {
@@ -79,6 +80,20 @@ spec:
                 }
             }
         }
+
+
+stage('SonarQube Analysis') {
+    steps {
+        script {
+            def scannerHome = tool 'SonarQubeScanner';
+            withSonarQubeEnv('sonar') {
+                sh "${scannerHome}/bin/sonar-scanner"
+            }
+        }
+    }
+}
+
+
 
 
         stage('Build Backend') {
