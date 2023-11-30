@@ -29,13 +29,6 @@ spec:
     - sleep
     args:
     - infinity
-  - name: sonarqube
-    image: sonarqube:lts
-    command:
-    - sh
-    - -c
-    - "curl -sSL -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.0.2311-linux.zip"
-    - "unzip sonar-scanner.zip"
   volumes:
   - name: docker-sock
     hostPath:
@@ -77,19 +70,16 @@ spec:
 
 stage('Análisis de SonarQube') {
     steps {
-        container('sonarqube') {
             script {
-                 sh "apk add --no-cache curl"
+                def scannerHome = tools 'SonarQubeScanner-5.0.1'
                 withSonarQubeEnv('sonarqube-9.9.3') {   
-
-              sh "sonar-scanner"
-                
-                
+                sh "${scannerHome}/bin/sonar-scanner"
              }
             }
-        }
     }
 }
+
+
 
         stage('Login-Into-Docker') {
             steps {
