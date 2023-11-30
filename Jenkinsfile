@@ -79,6 +79,8 @@ stage('Análisis de SonarQube') {
         container('sonarqube') {
             script {
                 withSonarQubeEnv('sonarqube-9.9.3') {   
+
+                sh "apk --no-cache add curl"
                 
                 sh "curl -sSL -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.0.2311-linux.zip"
                 sh "unzip sonar-scanner.zip"
