@@ -66,6 +66,16 @@ spec:
             }
         }
 
+stage('SonarQube Analysis') {
+    steps {
+        script {
+            withSonarQubeEnv('sonar') {
+                def scannerHome = tool 'SonarQubeScanner'
+                sh "${scannerHome}/bin/sonar-scanner"
+            }
+        }
+    }
+}
 
 
 
@@ -82,16 +92,7 @@ spec:
         }
 
 
-stage('SonarQube Analysis') {
-    steps {
-        script {
-            def scannerHome = tool 'SonarQubeScanner';
-            withSonarQubeEnv('sonar') {
-                sh "${scannerHome}/bin/sonar-scanner"
-            }
-        }
-    }
-}
+
 
 
 
