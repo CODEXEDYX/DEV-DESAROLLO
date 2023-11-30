@@ -44,6 +44,7 @@ spec:
         ARGOCD_SERVER = 'argocd.local' // el servidor donede se ejcuta argocd
         ARGO_PROJECT = 'miapp1' // el nombre del  proyecto  de argocd
         NAMESPACE = 'app-desarollo' // espacio de nombre donde va a publicar el proyecto el espacio de nombres
+        TRIVY_COMAND = 'fs --exit-code 1 --severity UNKNOWN,LOW,HIGH,CRITICAL .'
     }
 
     stages {
@@ -53,13 +54,13 @@ spec:
                     dir('backend') {
                         script {
                             sh "trivy --version"
-                            sh "trivy fs --exit-code 1 --severity UNKNOWN,LOW,HIGH,CRITICAL ."
+                            sh "trivy ${TRIVY_COMAND}"
                         }
                     }
                       dir('frontend') {
                         script {
                             sh "trivy --version"
-                            sh "trivy fs --exit-code 1 --severity UNKNOWN,LOW,HIGH,CRITICAL ."
+                            sh "trivy fs ${TRIVY_COMAND}"
                         }
                     }
                 }
