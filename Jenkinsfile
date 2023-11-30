@@ -74,14 +74,13 @@ spec:
         }
 
 
-
 stage('Análisis de SonarQube') {
     steps {
-        script {
-            withSonarQubeEnv('sonarqube-9.9.3') {
-                def scannerHome = tool 'SonarQubeScanner-5.0.1'
-                sh "${scannerHome}/bin/sonar-scanner"
-                
+        container('sonarqube') {
+            script {
+                withSonarQubeEnv('sonarqube-9.9.3') {   
+                sh "sonar-scanner"
+             }
             }
         }
     }
