@@ -67,16 +67,6 @@ spec:
             }
         }
 
-stage('SonarQube Analysis') {
-    steps {
-        script {
-            withSonarQubeEnv('sonar') {
-                def scannerHome = tool 'SonarQubeScanner'
-                sh "${scannerHome}/bin/sonar-scanner"
-            }
-        }
-    }
-}
 
 stage('SonarQube Analysis') {
     steps {
