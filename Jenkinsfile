@@ -69,7 +69,7 @@ spec:
 
 
 
-        stage('SonarQube Analysis') {
+stage('SonarQube Analysis') {
     steps {
         script {
             withSonarQubeEnv('sonar') {
