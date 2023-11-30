@@ -49,7 +49,9 @@ spec:
     stages {
 
      stage('SCM') {
+         steps{
         git 'https://github.com/CODEXEDYX/DEV-DESAROLLO.git'
+         }
      }
 
         stage('Security Scan and Build Backend and Frontend') {
