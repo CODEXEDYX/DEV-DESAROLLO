@@ -50,7 +50,9 @@ spec:
 
      stage('SCM') {
          steps{
-        git 'https://github.com/CODEXEDYX/DEV-DESAROLLO.git'
+            script{
+            git 'https://github.com/CODEXEDYX/DEV-DESAROLLO.git'
+            }
          }
      }
 
