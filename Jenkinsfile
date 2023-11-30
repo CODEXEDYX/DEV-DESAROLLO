@@ -48,14 +48,6 @@ spec:
 
     stages {
 
-     stage('SCM') {
-         steps{
-            script{
-            git 'https://github.com/CODEXEDYX/DEV-DESAROLLO.git'
-            }
-         }
-     }
-
         stage('Security Scan and Build Backend and Frontend') {
             steps {
                 container('trivy') {
