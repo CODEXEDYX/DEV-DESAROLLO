@@ -44,6 +44,8 @@ spec:
         ARGOCD_SERVER = 'argocd.local' // el servidor donede se ejcuta argocd
         ARGO_PROJECT = 'miapp1' // el nombre del  proyecto  de argocd
         NAMESPACE = 'app-desarollo' // espacio de nombre donde va a publicar el proyecto el espacio de nombres
+        SONAR_SCANNER_HOME = tool 'SonarQubeScanner'
+        SONARQUBE_SERVER = 'sonar'
     }
 
     stages {
