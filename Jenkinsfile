@@ -44,8 +44,6 @@ spec:
         ARGOCD_SERVER = 'argocd.local' // el servidor donede se ejcuta argocd
         ARGO_PROJECT = 'miapp1' // el nombre del  proyecto  de argocd
         NAMESPACE = 'app-desarollo' // espacio de nombre donde va a publicar el proyecto el espacio de nombres
-        SONAR_SCANNER_HOME = tool 'SonarQubeScanner'
-        SONARQUBE_SERVER = 'sonar'
     }
 
     stages {
@@ -70,20 +68,16 @@ spec:
         }
 
 
-
-stage('SonarQube Analysis') {
+stage('Análisis de SonarQube') {
     steps {
         script {
-            withSonarQubeEnv('sonar') {
-                withCredentials([usernamePassword(credentialsId: 'jenkins-sonar', passwordVariable: 'SONAR_PASSWORD', usernameVariable: 'SONAR_USERNAME')]) {
-                    def scannerHome = tool 'SonarQubeScanner'
-                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=${SONAR_USERNAME} -Dsonar.password=${SONAR_PASSWORD}"
-                }
+            withSonarQubeEnv('sonarqube-9.9.3') {
+                def scannerHome = tool 'SonarQubeScanner-5.0.1'
+                sh "${scannerHome}/bin/sonar-scanner"
             }
         }
     }
 }
-
 
         stage('Login-Into-Docker') {
             steps {
