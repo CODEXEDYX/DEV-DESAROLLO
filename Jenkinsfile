@@ -68,6 +68,21 @@ spec:
         }
 
 
+
+        stage('SonarQube Analysis') {
+    steps {
+        script {
+            withSonarQubeEnv('sonar') {
+                withCredentials([usernamePassword(credentialsId: 'jenkins-sonar', passwordVariable: 'SONAR_PASSWORD', usernameVariable: 'SONAR_USERNAME')]) {
+                    def scannerHome = tool 'SonarQubeScanner'
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=${SONAR_USERNAME} -Dsonar.password=${SONAR_PASSWORD}"
+                }
+            }
+        }
+    }
+}
+
+
 stage('SonarQube Analysis') {
     steps {
         script {
