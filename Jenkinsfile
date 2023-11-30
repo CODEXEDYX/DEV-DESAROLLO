@@ -47,6 +47,11 @@ spec:
     }
 
     stages {
+
+     stage('SCM') {
+        git 'https://github.com/CODEXEDYX/DEV-DESAROLLO.git'
+     }
+
         stage('Security Scan and Build Backend and Frontend') {
             steps {
                 container('trivy') {
@@ -65,6 +70,17 @@ spec:
                 }
             }
         }
+
+stage('SonarQube Analysis') {
+    steps {
+        script {
+            withSonarQubeEnv('sonar') {
+                def scannerHome = tool 'SonarQubeScanner'
+                sh "${scannerHome}/bin/sonar-scanner"
+            }
+        }
+    }
+}
 
 stage('SonarQube Analysis') {
     steps {
