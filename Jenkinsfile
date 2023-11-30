@@ -68,6 +68,8 @@ spec:
         }
 
 
+
+node {
 stage('Análisis de SonarQube') {
     steps {
         script {
@@ -77,6 +79,7 @@ stage('Análisis de SonarQube') {
             }
         }
     }
+}
 }
 
         stage('Login-Into-Docker') {
@@ -90,10 +93,6 @@ stage('Análisis de SonarQube') {
                 }
             }
         }
-
-
-
-
 
 
 
