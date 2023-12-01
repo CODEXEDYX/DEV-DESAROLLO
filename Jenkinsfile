@@ -73,7 +73,9 @@ stage('Análisis de SonarQube') {
             script {
                 //def scannerHome = tool 'SonarQubeScanner 4.6.2'
                 //sh "${scannerHome}/bin/sonar-scanner"
-                withSonarQubeEnv('sonarqube-9.9.3')
+                withSonarQubeEnv('sonarqube-9.9.3'){
+					      sh "sonar-qube version"
+				}
             }
     }
 }
