@@ -78,10 +78,6 @@ stage('Análisis de SonarQube') {
             }
     }
 }
-
-
-
-
         stage('Login-Into-Docker') {
             steps {
                 container('docker') {
