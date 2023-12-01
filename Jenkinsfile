@@ -82,6 +82,32 @@ stage('Análisis de SonarQube') {
 	}
 }
 
+
+stage('Análisis de SonarQube') {
+    steps {
+        script {
+            nodejs(nodeJSInstallationName: 'nodejs') {
+                dir('backend') {
+                    sh 'npm install'
+                    withSonarQubeEnv('sonar') {
+                        sh 'npm install sonar-scanner'
+                        sh 'npm run sonar'
+                    }
+                }
+
+				      dir('frontend') {
+                    sh 'npm install'
+                    withSonarQubeEnv('sonar') {
+                        sh 'npm install sonar-scanner'
+                        sh 'npm run sonar'
+                    }
+                }
+            }
+        }
+    }
+}
+
+
         stage('Login-Into-Docker') {
             steps {
                 container('docker') {
