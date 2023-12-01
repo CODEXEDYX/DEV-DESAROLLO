@@ -29,6 +29,12 @@ spec:
     - sleep
     args:
     - infinity
+  - name: sonarqube
+    image: sonarqube:lts
+    command:
+    - sleep
+    args:
+    - infinity
   volumes:
   - name: docker-sock
     hostPath:
@@ -69,6 +75,7 @@ spec:
 stage('Análisis de SonarQube and frontend y backend') {
     steps {
         script {
+            container('sonarqube'){
             nodejs(nodeJSInstallationName: 'nodejs') {
                  withEnv(['HUSKY_SKIP_INSTALL=true']) {
                 dir('backend') {
@@ -94,6 +101,7 @@ stage('Análisis de SonarQube and frontend y backend') {
 
             }
         }
+      }
     }
 }
 
