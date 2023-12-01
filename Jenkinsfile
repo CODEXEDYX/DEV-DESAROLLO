@@ -75,9 +75,7 @@ spec:
 stage('Análisis de SonarQube and frontend y backend') {
     steps {
         script {
-            container('sonarqube'){
-            nodejs(nodeJSInstallationName: 'nodejs') {
-                 withEnv(['HUSKY_SKIP_INSTALL=true']) {
+            nodejs(nodeJSInstallationName: 'nodejs') {         
                 dir('backend') {
                 sh 'npm install --ignore-scripts'
                     withSonarQubeEnv('sonar') {
@@ -98,10 +96,7 @@ stage('Análisis de SonarQube and frontend y backend') {
                     }
                 }
             }
-
-            }
         }
-      }
     }
 }
 
