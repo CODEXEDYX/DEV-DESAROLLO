@@ -72,7 +72,12 @@ stage('Análisis de SonarQube') {
 		script {
 			nodejs(nodeJSInstallationName:'nodejs'){
 				 sh 'yarn install'
+				withSonarQubeEnv('sonar'){
+					 sh "yarn add sonar-scanner"
+					 sh  "yarn sonar"
+				}
 			}
+
 		}
 	}
 }
