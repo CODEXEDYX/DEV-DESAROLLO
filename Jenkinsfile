@@ -77,9 +77,8 @@ stage('Análisis de SonarQube and frontend y backend') {
                         sh 'npm run sonar'
                     }
                 }
-
+				
 				      dir('frontend') {
-                    sh 'npm install'
                     withSonarQubeEnv('sonar') {
                         sh 'npm install sonar-scanner'
                         sh 'npm run sonar'
