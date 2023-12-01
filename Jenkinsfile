@@ -29,12 +29,6 @@ spec:
     - sleep
     args:
     - infinity
-  - name: sonarqube
-    image: sonarqube:lts
-    command:
-    - sleep
-    args:
-    - infinity
   volumes:
   - name: docker-sock
     hostPath:
@@ -83,6 +77,7 @@ stage('Análisis de SonarQube and frontend y backend') {
                         //sh "npm ci --omit=dev --ignore-scripts"
                         sh 'npm install sonar-scanner'
                         sh 'npm run sonar'
+                        sh 'npm run sonar -X'
                     }
                 }
 
@@ -94,6 +89,7 @@ stage('Análisis de SonarQube and frontend y backend') {
                         //sh "npm ci --omit=dev --ignore-scripts"
                         sh 'npm install sonar-scanner'
                         sh 'npm run sonar'
+                        sh 'npm run sonar -X'
                     }
                 }
             }
