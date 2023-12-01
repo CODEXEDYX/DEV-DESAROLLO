@@ -71,10 +71,10 @@ stage('Análisis de SonarQube') {
 	steps {
 		script {
 			nodejs(nodeJSInstallationName:'nodejs'){
-				 sh 'yarn install'
+				 sh 'npm install'
 				withSonarQubeEnv('sonar'){
-					 sh "yarn add sonar-scanner"
-					 sh  "yarn sonar"
+					 sh "npm install sonar-scanner"
+					 sh  "npm run sonar"
 				}
 			}
 
