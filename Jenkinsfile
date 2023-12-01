@@ -87,7 +87,7 @@ stage('Análisis de SonarQube and frontend y backend') {
                         //sh "npm pkg delete scripts.prepare"
                         //sh "npm ci --omit=dev --ignore-scripts"
                         sh 'npm install sonar-scanner'
-                        sh 'npm run sonar -X'
+                        sh 'npm run sonar -x'
                     }
                 }
             }
