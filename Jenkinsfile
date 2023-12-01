@@ -70,8 +70,8 @@ stage('Análisis de SonarQube and frontend y backend') {
     steps {
         script {
             nodejs(nodeJSInstallationName: 'nodejs') {
+                sh 'npm install'
                 dir('backend') {
-                    sh 'npm install'
                     withSonarQubeEnv('sonar') {
                         sh 'npm install sonar-scanner'
                         sh 'npm run sonar'
