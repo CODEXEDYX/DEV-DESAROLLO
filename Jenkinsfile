@@ -66,24 +66,7 @@ spec:
             }
         }
 
-
-stage('Análisis de SonarQube') {
-	steps {
-		script {
-			nodejs(nodeJSInstallationName:'nodejs'){
-				 sh 'npm install'
-				withSonarQubeEnv('sonar'){
-					 sh "npm install sonar-scanner"
-					 sh  "npm run sonar"
-				}
-			}
-
-		}
-	}
-}
-
-
-stage('Análisis de SonarQube') {
+stage('Análisis de SonarQube and frontend y backend') {
     steps {
         script {
             nodejs(nodeJSInstallationName: 'nodejs') {
