@@ -47,7 +47,6 @@ spec:
     }
 
     stages {
-
         stage('Security Scan and Build Backend and Frontend') {
             steps {
                 container('trivy') {
@@ -69,16 +68,15 @@ spec:
 
 
 stage('Análisis de SonarQube') {
-    steps {
-            script {
-                //def scannerHome = tool 'SonarQubeScanner 4.6.2'
-                //sh "${scannerHome}/bin/sonar-scanner"
-                withSonarQubeEnv('sonarqube-9.9.3'){
-					      sh "mv sonar:sonar"
-				}
-            }
-    }
+	steps {
+		script {
+			nodejs(nodeJSInstallationName:'nodejs'){
+				 sh 'yarn install'
+			}
+		}
+	}
 }
+
         stage('Login-Into-Docker') {
             steps {
                 container('docker') {
