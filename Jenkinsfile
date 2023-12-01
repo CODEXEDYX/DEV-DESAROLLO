@@ -72,7 +72,7 @@ stage('Análisis de SonarQube and frontend y backend') {
             nodejs(nodeJSInstallationName: 'nodejs') {
                  withEnv(['HUSKY_SKIP_INSTALL=true']) {
                 dir('backend') {
-                sh 'npm install'
+                sh 'npm install --ignore-scripts'
                     withSonarQubeEnv('sonar') {
                         sh "npm pkg delete scripts.prepare"
                         sh "npm ci --omit=dev --ignore-scripts"
@@ -82,7 +82,7 @@ stage('Análisis de SonarQube and frontend y backend') {
                 }
 
 				      dir('frontend') {
-						sh 'npm install'
+						sh 'npm install --ignore-scripts'
                     withSonarQubeEnv('sonar') {
                         sh "npm pkg delete scripts.prepare"
                         sh "npm ci --omit=dev --ignore-scripts"
