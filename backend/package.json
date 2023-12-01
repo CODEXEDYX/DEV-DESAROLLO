@@ -23,6 +23,7 @@
 	"scripts": {
 		"dev": "nodemon index.js",
 		"node": " node index.js",
+		"sonar": "sonar-scanner",
 		"prepare": "husky install"
 	},
 	"lint-staged": {
