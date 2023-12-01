@@ -78,7 +78,7 @@ stage('Análisis de SonarQube and frontend y backend') {
             nodejs(nodeJSInstallationName: 'nodejs') {         
                 dir('backend') {
                 sh "npm pkg delete scripts.prepare"
-                sh 'npm install --ignore-scripts'
+                sh 'npm install'
                     withSonarQubeEnv('sonar') {                     
                         //sh "npm ci --omit=dev --ignore-scripts"
                         sh 'npm install sonar-scanner'
