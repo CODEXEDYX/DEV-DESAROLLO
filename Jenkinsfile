@@ -77,7 +77,7 @@ stage('Análisis de SonarQube and frontend y backend') {
                         //sh "npm ci --omit=dev --ignore-scripts"
                         sh 'npm install sonar-scanner'
                         sh 'npm run sonar -X'
-                        sh "npm rm sonar-scanner"
+                        sh "npm uninstall sonar-scanner"
                     }
                 }
 
@@ -88,7 +88,7 @@ stage('Análisis de SonarQube and frontend y backend') {
                         
                         sh 'npm install sonar-scanner'
                         sh 'npm run sonar -X'
-                        sh  "npm rm sonar-scanner"
+                        sh  "npm uninstall sonar-scanner"
                     }
                 }
             }
