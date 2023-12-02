@@ -144,8 +144,8 @@ stage('Análisis de SonarQube and frontend y backend') {
                         def backendImageTag = "${DOCKER_REPO_BACKEND}:${APP_VERSION}-${BUILD_NUMBER}"
                         def frontendImageTag = "${DOCKER_REPO_FRONTEND}:${APP_VERSION}-${BUILD_NUMBER}"
                         sh "trivy --version"
-                        sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $backendImageTag"
-                        sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $frontendImageTag"
+                        sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --timeout 20m $backendImageTag"
+                        sh "trivy image --no-progress --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --timeout 20m $frontendImageTag"
                     }
                 }
             }
