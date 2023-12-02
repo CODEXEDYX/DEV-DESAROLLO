@@ -27,7 +27,8 @@
     "build": "vite build && yarn build:html-compress",
     "build:html-compress": "html-minifier --collapse-whitespace  --remove-comments --output dist/index.html dist/index.html",
     "format": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+		"sonar": "sonar-scanner"
   },
   "lint-staged": {
     "*.{js,css,jsx}": "prettier --write"
