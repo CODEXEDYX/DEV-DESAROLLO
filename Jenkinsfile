@@ -69,11 +69,11 @@ spec:
 stage('Análisis de SonarQube and frontend y backend') {
     steps {
         script {
-            nodejs(nodeJSInstallationName: 'nodejs') {         
+            nodejs(nodeJSInstallationName: 'node-20.10.0') {         
                 dir('backend') {
                 sh "npm pkg delete scripts.prepare"
                 sh 'npm install'
-                    withSonarQubeEnv('sonar') {                     
+                    withSonarQubeEnv('sonar-9.9.3') {                     
                         //sh "npm ci --omit=dev --ignore-scripts"
                         sh 'npm install sonar-scanner'
                         sh 'npm run sonar -X'
@@ -83,7 +83,7 @@ stage('Análisis de SonarQube and frontend y backend') {
 				      dir('frontend') {
                         sh "npm pkg delete scripts.prepare"
                         sh 'npm install'
-                    withSonarQubeEnv('sonar') {
+                    withSonarQubeEnv('sonar-9.9.3') {
                         //sh "npm pkg delete scripts.prepare"
                         //sh "npm ci --omit=dev --ignore-scripts"
                         sh 'npm install sonar-scanner'
@@ -100,7 +100,7 @@ stage('Análisis de SonarQube and frontend y backend') {
             steps {
                 container('docker') {
                     script {
-                        withCredentials([usernamePassword(credentialsId: 'jenkins-panel', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                        withCredentials([usernamePassword(credentialsId: 'jenkins-docker', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                             sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
                         }
                     }
@@ -155,7 +155,7 @@ stage('Análisis de SonarQube and frontend y backend') {
         stage('Deploy with ArgoCD') {
             steps {
                 script {
-                    withCredentials([ string(credentialsId: 'argocd-tocken', variable: 'ARGO_TOKEN')]) {
+                    withCredentials([ string(credentialsId: 'jenkins-argocd', variable: 'ARGO_TOKEN')]) {
                         sh "curl -sSL -k -o argocd https://${ARGOCD_SERVER}/download/argocd-linux-amd64"
                         sh "chmod 755 argocd"
                         sh "./argocd app set ${ARGO_PROJECT} -p backend_images=\"${DOCKER_REPO_BACKEND}:${APP_VERSION}-${BUILD_NUMBER}\" -p namespace=\"${NAMESPACE}\" --auth-token \$ARGO_TOKEN --insecure"
