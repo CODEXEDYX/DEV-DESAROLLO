@@ -41,7 +41,7 @@ spec:
         APP_VERSION = '0.0.1' // la version
         DOCKER_REPO_BACKEND = 'codexedyx/jenkins-backend' // el  nombre de las imagenes
         DOCKER_REPO_FRONTEND = 'codexedyx/jenkins-frontend' // el nombre de la imagenes
-        ARGOCD_SERVER = 'argocd.local' // el servidor donede se ejcuta argocd
+        ARGOCD_SERVER = 'argo.local' // el servidor donede se ejcuta argocd
         ARGO_PROJECT = 'miapp1' // el nombre del  proyecto  de argocd
         NAMESPACE = 'app-desarollo' // espacio de nombre donde va a publicar el proyecto el espacio de nombres
     }
