@@ -71,24 +71,32 @@ stage('Análisis de SonarQube and frontend y backend') {
         script {
             nodejs(nodeJSInstallationName: 'node-20.10.0') {         
                 dir('backend') {
-                sh "npm pkg delete scripts.prepare"
-                sh 'npm install'
+                //sh "npm pkg delete scripts.prepare"
+                sh "yarn remove scripts.prepare"
+                //sh 'npm install'
                     withSonarQubeEnv('sonar-9.9.3') {                     
                         //sh "npm ci --omit=dev --ignore-scripts"
-                        sh 'npm install sonar-scanner'
-                        sh 'npm run sonar -X'
-                        sh "npm uninstall sonar-scanner"
+                        //sh 'npm install sonar-scanner'
+                        //sh 'npm run sonar -X'
+                        //sh "npm uninstall sonar-scanner"
+                        sh "yarn add sonar-scanner"
+                        sh "yarn sonar"
+                        sh "yarn remove sonar-scanner"
                     }
                 }
 
 				      dir('frontend') {
-                        sh "npm pkg delete scripts.prepare"
-                        sh 'npm install'
+                        //sh "npm pkg delete scripts.prepare"
+                        sh "yarn remove scripts.prepare"
+                        //sh 'npm install'
                     withSonarQubeEnv('sonar-9.9.3') {
-                        
-                        sh 'npm install sonar-scanner'
-                        sh 'npm run sonar -X'
-                        sh  "npm uninstall sonar-scanner"
+                        //sh "npm ci --omit=dev --ignore-scripts"
+                        //sh 'npm install sonar-scanner'
+                        //sh 'npm run sonar -X'
+                        //sh "npm uninstall sonar-scanner"
+                        sh "yarn add sonar-scanner"
+                        sh "yarn sonar"
+                        sh "yarn remove sonar-scanner"
                     }
                 }
             }
