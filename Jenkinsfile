@@ -71,8 +71,7 @@ stage('Análisis de SonarQube and frontend y backend') {
         script {
             nodejs(nodeJSInstallationName: 'node-20.10.0') {         
                 dir('backend') {
-                //sh "npm pkg delete scripts.prepare"
-                sh "yarn remove scripts.prepare"
+                sh "npm pkg delete scripts.prepare"
                 //sh 'npm install'
                     withSonarQubeEnv('sonar-9.9.3') {                     
                         //sh "npm ci --omit=dev --ignore-scripts"
@@ -86,8 +85,7 @@ stage('Análisis de SonarQube and frontend y backend') {
                 }
 
 				      dir('frontend') {
-                        //sh "npm pkg delete scripts.prepare"
-                        sh "yarn remove scripts.prepare"
+                        sh "npm pkg delete scripts.prepare"
                         //sh 'npm install'
                     withSonarQubeEnv('sonar-9.9.3') {
                         //sh "npm ci --omit=dev --ignore-scripts"
