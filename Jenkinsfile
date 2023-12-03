@@ -90,7 +90,7 @@ stage('Análisis de SonarQube and frontend y backend') {
                         //sh 'npm install'
                         sh "yarn install"
                     withSonarQubeEnv('sonar-9.9.3') {
-                        //sh "npm ci --omit=dev --ignore-scripts"
+                         //sh "npm ci --omit=dev --ignore-scripts"
                         //sh 'npm install sonar-scanner'
                         //sh 'npm run sonar -X'
                         //sh "npm uninstall sonar-scanner"
