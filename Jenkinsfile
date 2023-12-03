@@ -94,7 +94,7 @@ stage('Análisis de SonarQube and frontend y backend') {
                         sh 'npm install sonar-scanner'
                         sh 'npm run sonar -X'
                         sh "npm uninstall sonar-scanner"
-                        //sh "yarn add sonar-scanner"
+                         //sh "yarn add sonar-scanner"
                         //sh "yarn sonar"
                         //sh "yarn remove sonar-scanner"
                     }
